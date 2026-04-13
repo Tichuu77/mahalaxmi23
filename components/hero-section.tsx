@@ -1,331 +1,289 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+﻿'use client';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Phone } from 'lucide-react';
 
 const navLinks = [
-  { name: 'Overview', href: '#overview', active: false },
-  { name: 'Amenities', href: '#amenities', active: false },
-  { name: 'Gallery', href: '#gallery', active: false },
-  { name: 'Testimonials', href: '#testimonials', active: false },
-  { name: 'FAQ', href: '#faq_sec', active: false }
+  { name: 'Overview',     href: '#overview' },
+  { name: 'Amenities',    href: '#amenities' },
+  { name: 'Gallery',      href: '#gallery' },
+  { name: 'Testimonials', href: '#testimonials' },
+  { name: 'FAQ',          href: '#faq_sec' },
 ];
 
 export default function HeroSection() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [navLinksState, setNavLinksState] = useState(navLinks);
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen]   = useState(false);
+  const [scrolled, setScrolled]       = useState(false);
+  const [activeLink, setActiveLink]   = useState('');
+  const [isMobile, setIsMobile]       = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Check if window is mobile on mount
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <>
-      {/* Header */}
+      {/* ── NAV ── */}
       <header
-        className="fixed top-0 left-0 right-0 z-50 py-3 md:py-4 backdrop-blur-sm"
-        style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        style={{
+          background: scrolled
+            ? 'rgba(13, 42, 33, 0.92)'
+            : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          padding: scrolled ? '0.5rem 0' : '1.25rem 0',
+          boxShadow: scrolled ? '0 2px 24px rgba(0,0,0,0.35)' : 'none',
+        }}
       >
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <a href="/" className="flex items-center gap-2 sm:gap-3">
-                <div className="relative">
-                  <img 
-                    src="/Malaxmi-Final-Logo.-2png.png" 
-                    alt="Mahalaxmi Nagar Logo" 
-                    className="w-32 h-auto sm:w-40 md:w-45 object-contain" 
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+          {/* Logo */}
+          <a href="/" className="flex-shrink-0 flex items-center gap-2">
+            <img
+              src="/Malaxmi-Final-Logo.-2png.png"
+              alt="Mahalaxmi Nagar 43 Logo"
+              className="h-12 w-auto object-contain"
+            />
+          </a>
+
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-7">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setActiveLink(link.name)}
+                className="relative text-sm font-semibold uppercase tracking-widest transition-colors"
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  color: activeLink === link.name ? 'var(--secondary)' : '#fff',
+                }}
+              >
+                {link.name}
+                {activeLink === link.name && (
+                  <span
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
+                    style={{ background: 'var(--secondary)' }}
                   />
-                </div>
+                )}
               </a>
-            </div>
+            ))}
+          </nav>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-              {navLinksState.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="font-semibold transition-colors uppercase tracking-wide hover:opacity-100"
-                  style={{
-                    color: link.active ? 'var(--secondary)' : 'var(--primary-foreground)',
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(16px, 1.2vw, 20px)',
-                    opacity: link.active ? 1 : 0.9,
-                    borderBottom: link.active ? '2px solid var(--secondary)' : 'none',
-                  }}
-                  onClick={() => {
-                    setNavLinksState(navLinksState.map(navLink => ({
-                      ...navLink,
-                      active: navLink.name === link.name
-                    })));
-                  }}
-                >
-                  {link.name}
-                </a>
-              ))}
-            </nav>
+          {/* Desktop CTA */}
+          <a
+            href="tel:+919552147036"
+            className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm uppercase tracking-wide transition-all hover:scale-105"
+            style={{ background: 'var(--secondary)', color: '#fff', fontFamily: 'var(--font-heading)' }}
+          >
+            <Phone size={15} />
+            +91 95521 47036
+          </a>
 
-            {/* Phone Numbers - Desktop */}
-            <div className="hidden lg:flex items-center gap-2 xl:gap-3 ml-4 xl:ml-6">
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+            aria-label="Toggle menu"
+            style={{ color: '#fff' }}
+          >
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
+
+        {/* Mobile drawer */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-400 ease-in-out`}
+          style={{
+            maxHeight: isMenuOpen ? '420px' : '0',
+            background: 'rgba(13,42,33,0.97)',
+            backdropFilter: 'blur(12px)',
+          }}
+        >
+          <nav className="flex flex-col px-6 py-4 gap-1">
+            {navLinks.map((link) => (
               <a
-                href="tel:+917304702424"
-                className="font-bold transition-all hover:scale-105 rounded whitespace-nowrap"
+                key={link.name}
+                href={link.href}
+                onClick={() => { setIsMenuOpen(false); setActiveLink(link.name); }}
+                className="py-3 px-3 rounded-lg text-base font-semibold uppercase tracking-widest transition-colors hover:bg-white/10"
                 style={{
-                  color: 'var(--foreground)',
                   fontFamily: 'var(--font-heading)',
-                  backgroundColor: 'var(--secondary)',
-                  fontSize: 'clamp(14px, 1.1vw, 18px)',
-                  padding: '8px 12px'
+                  color: activeLink === link.name ? 'var(--secondary)' : '#fff',
                 }}
               >
-                +91 7304702424
+                {link.name}
               </a>
-              <a
-                href="tel:+919762007743"
-                className="font-bold transition-all hover:scale-105 rounded whitespace-nowrap"
-                style={{
-                  color: 'var(--foreground)',
-                  fontFamily: 'var(--font-heading)',
-                  backgroundColor: 'var(--secondary)',
-                  fontSize: 'clamp(14px, 1.1vw, 18px)',
-                  padding: '8px 12px'
-                }}
-              >
-                +91 9762007743
-              </a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
-              style={{ color: 'var(--primary-foreground)' }}
-              aria-label="Toggle menu"
-              aria-expanded={isMenuOpen}
+            ))}
+            <a
+              href="tel:+919552147036"
+              className="mt-3 flex items-center justify-center gap-2 py-3 rounded-full font-bold text-sm uppercase tracking-wide"
+              style={{ background: 'var(--secondary)', color: '#fff', fontFamily: 'var(--font-heading)' }}
             >
-              {isMenuOpen ? (
-                <X className="w-7 h-7" />
-              ) : (
-                <Menu className="w-7 h-7" />
-              )}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div
-              className="lg:hidden py-4 border-t mt-2 animate-fadeIn"
-              style={{ 
-                borderColor: 'rgba(255, 255, 255, 0.2)',
-                backgroundColor: 'rgba(0, 0, 0, 0.5)'
-              }}
-            >
-              <nav className="flex flex-col space-y-1">
-                {navLinksState.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setNavLinksState(navLinksState.map(navLink => ({
-                        ...navLink,
-                        active: navLink.name === link.name
-                      })));
-                    }}
-                    className="text-base sm:text-lg font-semibold py-3 px-4 transition-all uppercase rounded touch-manipulation hover:bg-white/10"
-                    style={{
-                      color: link.active ? 'var(--secondary)' : 'var(--primary-foreground)',
-                      fontFamily: 'var(--font-heading)',
-                      opacity: link.active ? 1 : 0.9
-                    }}
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                
-                {/* Phone Numbers in Mobile Menu */}
-                <div className="flex flex-col gap-3 mt-4 px-4">
-                  <a
-                    href="tel:+917304702424"
-                    className="text-base sm:text-lg font-bold py-3 px-4 rounded text-center touch-manipulation transition-transform hover:scale-105"
-                    style={{
-                      color: 'var(--foreground)',
-                      backgroundColor: 'var(--secondary)',
-                      fontFamily: 'var(--font-heading)'
-                    }}
-                  >
-                    +91 7304702424
-                  </a>
-                  <a
-                    href="tel:+919762007743"
-                    className="text-base sm:text-lg font-bold py-3 px-4 rounded text-center touch-manipulation transition-transform hover:scale-105"
-                    style={{
-                      color: 'var(--foreground)',
-                      backgroundColor: 'var(--secondary)',
-                      fontFamily: 'var(--font-heading)'
-                    }}
-                  >
-                    +91 9762007743
-                  </a>
-                </div>
-              </nav>
-            </div>
-          )}
+              <Phone size={15} />
+              +91 95521 47036
+            </a>
+          </nav>
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* ── HERO ── */}
       <section
-        className="relative min-h-screen flex items-center overflow-hidden"
-        style={{
-          backgroundImage: 'url("/gallery_6.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: isMobile ? 'scroll' : 'fixed',
-          paddingTop: '80px'
-        }}
+        ref={heroRef}
+        className="relative min-h-screen flex items-end md:items-center overflow-hidden"
+        style={{ background: '#0d2a20' }}
+        aria-label="Hero section"
       >
-        {/* Dark Overlay */}
+        {/* Background image with Ken Burns */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, rgba(30, 80, 33, 0.35) 0%, rgba(30, 55, 15, 0.39) 50%, rgba(27, 70, 25, 0.39) 100%)'
+            backgroundImage: 'url("/gallery_1.jpg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center 40%',
+            animation: 'kenBurns 18s ease-in-out infinite alternate',
           }}
-        ></div>
+        />
+
+        {/* Multi-layer gradient overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: isMobile
+              ? 'linear-gradient(to top, rgba(10,30,20,0.95) 0%, rgba(10,30,20,0.7) 50%, rgba(10,30,20,0.35) 100%)'
+              : 'linear-gradient(105deg, rgba(10,30,20,0.92) 0%, rgba(10,30,20,0.75) 45%, rgba(10,30,20,0.15) 100%)',
+          }}
+        />
+
+        {/* Decorative vertical line */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-1 hidden md:block"
+          style={{ background: 'linear-gradient(to bottom, transparent, var(--secondary), transparent)' }}
+        />
 
         {/* Content */}
-        <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 relative z-10">
-          <div className="max-w-3xl space-y-6 sm:space-y-8">
-            {/* Top Badge */}
-            
-
-            {/* Main Heading */}
-            <h1
-              className="font-bold leading-tight"
-              style={{
-                fontFamily: 'var(--font-heading)',
-                textShadow: '2px 2px 8px rgba(0,0,0,0.6)',
-                fontSize: 'clamp(2rem, 8vw, 4rem)',
-                lineHeight: '1.1',
-                letterSpacing: '0.01em',
-                color: 'var(--primary-foreground)'
-              }}
-            >
-              Mahalaxmi Nagar - 45
-            </h1>
-
-            {/* Stats Row */}
-            <div
-              className={`transition-all duration-700 delay-300 grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-            >
-              <div className="bg-white/10  border border-white/20 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6 text-center">
-                <div 
-                  className="font-bold mb-1 sm:mb-2"
-                  style={{
-                    fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
-                    color: '#ffffff',
-                    fontFamily: 'var(--font-heading)'
-                  }}
-                >
-                  70+
-                </div>
-                <div 
-                  className="text-white/80"
-                  style={{
-                    fontSize: 'clamp(0.75rem, 2vw, 1rem)',
-                    fontFamily: 'var(--font-heading)'
-                  }}
-                >
-                  Projects
-                </div>
-              </div>
-              
-              <div className="bg-white/10  border border-white/20 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6 text-center">
-                <div 
-                  className="font-bold mb-1 sm:mb-2"
-                  style={{
-                    fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
-                    color: '#ffffff',
-                    fontFamily: 'var(--font-heading)'
-                  }}
-                >
-                  17111+
-                </div>
-                <div 
-                  className="text-white/80"
-                  style={{
-                    fontSize: 'clamp(0.75rem, 2vw, 1rem)',
-                    fontFamily: 'var(--font-heading)'
-                  }}
-                >
-                  Happy Clients
-                </div>
-              </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-28 md:py-0">
+          <div className="max-w-2xl">
+            {/* Badge */}
+            <div className="mb-5">
+              <span className="section-chip section-chip-white">
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: 'var(--secondary)', animation: 'pulseDot 1.8s ease-in-out infinite' }}
+                />
+                RERA &amp; NMRDA Approved · Wardha Road, Nagpur
+              </span>
             </div>
 
-            {/* CTA Button */}
-            <div className="pt-2 sm:pt-4">
+            {/* H1 */}
+            <h1
+              className="font-bold mb-4 leading-tight"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(2.2rem, 7vw, 4.5rem)',
+                color: '#fff',
+                textShadow: '0 4px 24px rgba(0,0,0,0.5)',
+                lineHeight: 1.08,
+              }}
+            >
+              Mahalaxmi<br />
+              <span style={{ color: 'var(--secondary)' }}>Nagar 43</span>
+            </h1>
+
+            {/* Subheading */}
+            <p
+              className="mb-8 leading-relaxed"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                color: 'rgba(255,255,255,0.82)',
+                fontSize: 'clamp(1rem, 2.2vw, 1.2rem)',
+              }}
+            >
+              Premium Residential Plots in Nagpur — crafted for those who seek exclusivity,
+              green living, and long-term growth.
+            </p>
+
+            {/* Stats */}
+            <div className="flex flex-wrap gap-4 mb-10">
+              {[
+                { value: '70+',    label: 'Projects' },
+                { value: '17111+', label: 'Happy Clients' },
+                { value: '80%',    label: 'Bank Funding' },
+                { value: 'RERA',   label: 'Approved' },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="glass-card rounded-xl px-5 py-4 min-w-[110px] text-center"
+                >
+                  <div
+                    className="font-bold leading-none mb-1"
+                    style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.4rem, 3.5vw, 2rem)', color: 'var(--secondary)' }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    className="text-xs font-medium uppercase tracking-widest"
+                    style={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-sans)' }}
+                  >
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3">
               <a href="#faq_sec">
                 <button
-                  className="rounded hover:cursor-pointer font-bold tracking-wide transition-all hover:scale-105 active:scale-95 shadow-lg uppercase w-full sm:w-auto touch-manipulation"
-                  style={{
-                    background: 'var(--secondary)',
-                    color: 'var(--foreground)',
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(13px, 2.5vw, 16px)',
-                    padding: '14px 32px',
-                  }}
+                  className="btn-gold w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest"
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   Enquire Now
+                </button>
+              </a>
+              <a href="#gallery">
+                <button
+                  className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest transition-all hover:bg-white/10"
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    border: '2px solid rgba(255,255,255,0.4)',
+                    color: '#fff',
+                  }}
+                >
+                  View Gallery
                 </button>
               </a>
             </div>
           </div>
         </div>
+
+        {/* Bottom scroll cue */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+          <span
+            className="text-xs uppercase tracking-widest"
+            style={{ color: '#fff', fontFamily: 'var(--font-sans)' }}
+          >
+            Scroll
+          </span>
+          <div
+            className="w-px h-10"
+            style={{ background: 'linear-gradient(to bottom, #fff, transparent)' }}
+          />
+        </div>
       </section>
 
       <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-
-        /* Improve scroll behavior on mobile */
-        @media (max-width: 768px) {
-          section {
-            background-attachment: scroll !important;
-          }
-        }
-
-        /* Ensure touch targets are large enough */
-        @media (hover: none) and (pointer: coarse) {
-          button, a {
-            min-height: 44px;
-            min-width: 44px;
-          }
+        @keyframes kenBurns {
+          from { transform: scale(1); }
+          to   { transform: scale(1.08); }
         }
       `}</style>
     </>

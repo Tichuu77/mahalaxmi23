@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
     await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>", // you can use a custom domain later
-      to: "dighoriofficebranch@gmail.com", // your destination email
+      to: "akdhomne@gmail.com", // your destination email
       subject: `New Contact Message: ${subject}`,
       html: `
         <h2>New Message from Website</h2>

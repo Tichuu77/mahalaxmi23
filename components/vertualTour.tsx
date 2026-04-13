@@ -1,90 +1,94 @@
 'use client';
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export default function VirtualTourHero() {
-  const handleBookTour = () => {
-    const formElement = document.getElementById('lead_form_2');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section 
-      className="relative min-h-screen flex items-center py-20 px-4"
+    <section
+      className="relative min-h-[80vh] flex items-center overflow-hidden bg-fixed-mobile"
       style={{
-        backgroundImage: 'url("\gallery_2.jpg")',
+        backgroundImage: 'url("/gallery_4.jpg")',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
+        backgroundPosition: 'center top',
+        backgroundAttachment: 'fixed',
       }}
+      aria-label="Virtual tour section"
     >
-      {/* Overlay */}
-      <div 
+      {/* Sophisticated overlay */}
+      <div
         className="absolute inset-0"
-        style={{ 
-          background: 'linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6), transparent)',
-          backgroundAttachment: 'fixed'
+        style={{
+          background: 'linear-gradient(115deg, rgba(8,24,16,0.92) 0%, rgba(8,24,16,0.72) 55%, rgba(8,24,16,0.3) 100%)',
         }}
-      ></div>
-      
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="max-w-2xl scroll-fade">
-          <h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight uppercase tracking-wide"
+      />
+
+      {/* Decorative vertical accent line */}
+      <div
+        className="absolute left-0 top-16 bottom-16 w-1 rounded-r-full"
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--secondary), transparent)' }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 w-full">
+        <div className="max-w-2xl">
+          {/* Badge */}
+          <span className="section-chip section-chip-white mb-6 block w-fit">
+            <span
+              className="w-2 h-2 rounded-full inline-block"
+              style={{ background: 'var(--secondary)', animation: 'pulseDot 1.8s ease-in-out infinite' }}
+            />
+            Virtual Tour Available
+          </span>
+
+          <h2
+            className="font-bold mb-6 leading-tight uppercase tracking-wide"
             style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
               color: 'var(--secondary)',
-              fontFamily: 'var(--font-heading)'
+              textShadow: '0 2px 16px rgba(0,0,0,0.4)',
             }}
           >
-            Living Spaces in Nagpur's Premier Area
-          </h1>
-          
-          <div className="space-y-4 mb-8">
-            <p 
-              className="text-base md:text-lg leading-relaxed"
-              style={{
-                color: 'var(--primary-foreground)',
-                fontFamily: 'var(--font-sans)'
-              }}
+            Living Spaces in<br />Nagpur's Premier Area
+          </h2>
+
+          <div className="space-y-4 mb-10">
+            <p
+              style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.82)', fontSize: '1.05rem', lineHeight: 1.75 }}
             >
-             Explore the project in detail from the comfort of your home. Experience the layout, infrastructure planning, and key highlights through an immersive, interactive view.
+              Explore the project in detail from the comfort of your home. Experience the layout,
+              infrastructure planning, and key highlights through an immersive, interactive view.
             </p>
-            
-            <p 
-              className="text-base md:text-lg leading-relaxed"
-              style={{
-                color: 'var(--primary-foreground)',
-                fontFamily: 'var(--font-sans)'
-              }}
+            <p
+              style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.65)', fontSize: '0.95rem', lineHeight: 1.7 }}
             >
-              Ideal for outstation buyers and busy professionals looking to make informed 
-              decisions with confidence.
+              Ideal for outstation buyers and busy professionals looking to make informed decisions
+              with confidence.
             </p>
           </div>
-          
-          {/* CTA Button */}
-          <div className="flex">
+
+          {/* CTA */}
+          <a href="#faq_sec">
             <button
-              onClick={handleBookTour}
-              className="group relative px-8 py-4 rounded-lg font-bold text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105"
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm transition-all duration-300 hover:shadow-2xl"
               style={{
-                background: 'var(--secondary)',
-                color: 'var(--accent-foreground)',
-                fontFamily: 'var(--font-heading)'
+                fontFamily: 'var(--font-heading)',
+                background: 'transparent',
+                border: '2px solid var(--secondary)',
+                color: 'var(--secondary)',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = 'var(--secondary)';
+                (e.currentTarget as HTMLButtonElement).style.color = '#fff';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                (e.currentTarget as HTMLButtonElement).style.color = 'var(--secondary)';
               }}
             >
-              <a href='#faq_sec' className="relative z-10">Book a Virtual Tour</a>
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background: 'linear-gradient(to right, var(--secondary), var(--secondary))'
-                }}
-              ></div>
+              Book a Virtual Tour
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
             </button>
-          </div>
+          </a>
         </div>
       </div>
     </section>

@@ -1,88 +1,136 @@
 'use client';
-import React, { useState } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
-const galleryItems = [
-  { id: 1, src: "/gallery_9.jpg", alt: "Entry Court" },
-  { id: 2, src: "/gallery_2.jpg", alt: "Top View" },
-  { id: 3, src: "/gallery_10.jpg", alt: "Basketball" },
-  { id: 4, src: "/gallery_8.jpg", alt: "Garden" },
-  { id: 5, src: "/gallery_5.jpg", alt: "Morning View" },
-  { id: 6, src: "/gallery_6.jpg", alt: "Walking Path" },
-  { id: 7, src: "/gallery_4.jpg", alt: "Nature View" },
-  { id: 8, src: "/gallery_7.jpg", alt: "Water Feature" },
+type GalleryItem = { id: number; src: string; alt: string; span: string; tag: string };
+
+const galleryItems: GalleryItem[] = [
+  { id: 1, src: '/gallery_4.jpg', alt: 'Master Layout — Full Aerial View',     span: 'col-span-2 row-span-2', tag: 'Project Overview' },
+  { id: 2, src: '/gallery_1.jpg', alt: 'Garden Seating Lounge & Pergola',      span: 'col-span-1 row-span-1', tag: 'Lifestyle' },
+  { id: 3, src: '/gallery_5.jpg', alt: "Children's Play Area",                 span: 'col-span-1 row-span-1', tag: 'Amenities' },
+  { id: 4, src: '/gallery_2.jpg', alt: 'Aerial Amenities & Central Park',      span: 'col-span-1 row-span-1', tag: 'Aerial View' },
+  { id: 5, src: '/gallery_3.jpg', alt: 'Corner Plot Landscape & Garden Strip', span: 'col-span-2 row-span-1', tag: 'Green Spaces' },
 ];
 
 export default function GallerySection() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
 
-  const navigateModalImage = (direction: 'prev' | 'next') => {
+  const navigateModal = (dir: 'prev' | 'next') => {
     if (selectedId === null) return;
-    const currentIndex = galleryItems.findIndex(item => item.id === selectedId);
-    const newIndex = direction === 'prev'
-      ? (currentIndex === 0 ? galleryItems.length - 1 : currentIndex - 1)
-      : (currentIndex + 1) % galleryItems.length;
-    setSelectedId(galleryItems[newIndex].id);
+    const idx = galleryItems.findIndex((i) => i.id === selectedId);
+    const next = dir === 'prev'
+      ? (idx === 0 ? galleryItems.length - 1 : idx - 1)
+      : (idx + 1) % galleryItems.length;
+    setSelectedId(galleryItems[next].id);
   };
 
+  const selectedItem = galleryItems.find((i) => i.id === selectedId);
+
   return (
-    <section 
-      className="py-16 md:py-24"
-      style={{ backgroundColor: 'var(--background)' }}
-      id='gallery'
+    <section
+      id="gallery"
+      className="py-20 md:py-28"
+      style={{ background: 'linear-gradient(160deg, #f0ede6 0%, #f9f7f4 100%)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16 scroll-fade">
-          <h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3"
-            style={{
-              fontFamily: 'var(--font-heading)',
-              color: 'var(--tcolor)'
-            }}
-          >
-            Our Gallery
-          </h2>
-          <p 
-            className="text-lg md:text-xl"
-            style={{
-              color: 'var(--muted-foreground)',
-              fontFamily: 'var(--font-sans)'
-            }}
-          >
-            Where Luxury Meets Timeless Design
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 scroll-fade">
+          <div>
+            <span className="section-chip mb-3 block w-fit">Photo Gallery</span>
+            <h2
+              className="leading-tight"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: 'var(--primary)' }}
+            >
+              Our Gallery
+              <span className="block" style={{ color: 'var(--secondary)' }}>Where Luxury Meets Design</span>
+            </h2>
+          </div>
+          <a href="#faq_sec">
+            <button
+              className="whitespace-nowrap px-7 py-3 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:scale-105 hover:shadow-lg"
+              style={{ background: 'var(--primary)', color: '#fff', fontFamily: 'var(--font-heading)' }}
+            >
+              Enquire Now
+            </button>
+          </a>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {/* MOBILE: horizontal snap carousel */}
+        <div
+          ref={mobileScrollRef}
+          className="mobile-snap-scroll md:hidden"
+        >
           {galleryItems.map((item) => (
             <div
               key={item.id}
-              className="group relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 scroll-fade"
+              className="relative overflow-hidden rounded-2xl cursor-pointer group"
+              style={{ width: '72vw', height: '56vw', flexShrink: 0 }}
               onClick={() => setSelectedId(item.id)}
             >
               <img
                 src={item.src}
                 alt={item.alt}
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <Maximize2 size={28} color="#fff" />
+              </div>
+              <div
+                className="absolute bottom-0 left-0 right-0 p-3 text-xs font-bold uppercase tracking-widest"
+                style={{
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                  color: '#fff',
+                  fontFamily: 'var(--font-heading)',
+                }}
+              >
+                {item.alt}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* DESKTOP: masonry-style CSS grid — 3-col so all 5 tiles fill perfectly */}
+        <div
+          className="hidden md:grid gap-4"
+          style={{ gridTemplateColumns: 'repeat(3, 1fr)', gridAutoRows: '240px' }}
+        >
+          {galleryItems.map((item) => (
+            <div
+              key={item.id}
+              className={`${item.span} relative overflow-hidden rounded-2xl cursor-pointer group scroll-fade`}
+              onClick={() => setSelectedId(item.id)}
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              {/* Always-visible tag badge */}
+              <div
+                className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest opacity-90"
+                style={{ background: 'var(--secondary)', color: '#fff', fontFamily: 'var(--font-heading)' }}
+              >
+                {item.tag}
+              </div>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div 
-                    className="w-12 h-12 backdrop-blur-sm rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: 'var(--secondary)' }}
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl"
+                    style={{ background: 'var(--secondary)' }}
                   >
-                    <svg 
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      style={{ color: 'var(--accent-foreground)' }}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
+                    <Maximize2 size={22} color="#fff" />
                   </div>
+                </div>
+                <div
+                  className="absolute bottom-4 left-4 right-4 text-sm font-semibold leading-snug"
+                  style={{ color: '#fff', fontFamily: 'var(--font-heading)' }}
+                >
+                  {item.alt}
                 </div>
               </div>
             </div>
@@ -90,85 +138,70 @@ export default function GallerySection() {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* ── Lightbox Modal ── */}
       {selectedId !== null && (
         <div
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setSelectedId(null)}
         >
-          <div className="relative max-w-5xl w-full h-[80vh]" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="relative max-w-5xl w-full"
+            style={{ maxHeight: '90vh' }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <img
-              src={galleryItems.find((item) => item.id === selectedId)?.src}
-              alt={galleryItems.find((item) => item.id === selectedId)?.alt}
-              className="w-full h-full object-contain rounded-lg"
+              src={selectedItem?.src}
+              alt={selectedItem?.alt}
+              className="w-full rounded-2xl object-contain"
+              style={{ maxHeight: '80vh' }}
             />
-            
-            {/* Navigation arrows */}
+
+            {/* Nav */}
             <button
-              onClick={(e) => { e.stopPropagation(); navigateModalImage('prev'); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors backdrop-blur-sm"
-              style={{ backgroundColor: 'var(--secondary)' }}
+              onClick={(e) => { e.stopPropagation(); navigateModal('prev'); }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110"
+              style={{ background: 'var(--secondary)' }}
               aria-label="Previous"
             >
-              <ChevronLeft 
-                size={28}
-                style={{ color: 'var(--background)' }}
-              />
+              <ChevronLeft size={24} color="#fff" />
             </button>
             <button
-              onClick={(e) => { e.stopPropagation(); navigateModalImage('next'); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors backdrop-blur-sm"
-              style={{ backgroundColor: 'var(--secondary)' }}
+              onClick={(e) => { e.stopPropagation(); navigateModal('next'); }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110"
+              style={{ background: 'var(--secondary)' }}
               aria-label="Next"
             >
-              <ChevronRight 
-                size={28}
-                style={{ color: 'var(--background)' }}
-              />
+              <ChevronRight size={24} color="#fff" />
             </button>
 
-            {/* Close button */}
+            {/* Close */}
             <button
               onClick={() => setSelectedId(null)}
-              className="absolute top-4 right-4 p-2 rounded-full transition-colors backdrop-blur-sm"
-              style={{ backgroundColor: 'var(--secondary)' }}
+              className="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+              style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)' }}
               aria-label="Close"
             >
-              <X 
-                size={28}
-                style={{ color: 'var(--background)' }}
-              />
+              <X size={20} color="#fff" />
             </button>
 
-            {/* Image info */}
-            <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md rounded-lg p-4"
-              style={{ backgroundColor: 'var(--secondary)' }}
-            >
-              <p 
-                className="font-semibold text-lg"
-                style={{
-                  color: 'var(--background)',
-                  fontFamily: 'var(--font-heading)'
-                }}
+            {/* Caption & counter */}
+            <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-3">
+              <div
+                className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest"
+                style={{ background: 'var(--secondary)', color: '#fff', fontFamily: 'var(--font-heading)' }}
               >
-                {galleryItems.find((item) => item.id === selectedId)?.alt}
-              </p>
+                {selectedItem?.alt}
+              </div>
+              <div
+                className="px-3 py-2 rounded-full text-xs font-semibold"
+                style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', backdropFilter: 'blur(6px)', fontFamily: 'var(--font-sans)' }}
+              >
+                {galleryItems.findIndex(i => i.id === selectedId) + 1} / {galleryItems.length}
+              </div>
             </div>
           </div>
         </div>
       )}
-      <a href="#faq_sec">
-      <button 
-        className="mt-12 hover:cursor-pointer mx-auto block px-10 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
-        style={{
-          backgroundColor: 'var(--secondary)',
-          color: 'var(--accent-foreground)',
-          fontFamily: 'var(--font-heading)'
-        }}
-      >
-        Explore More 
-      </button>
-      </a>
     </section>
   );
 }
