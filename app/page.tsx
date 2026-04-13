@@ -9,7 +9,6 @@ import { Footer } from "@/components/footer"
 import FloatingCTA from "@/components/FloatingCTA"
 import FeaturesSwitcher from "@/components/FeaturesSwitcher"
 import VirtualTourHero from "@/components/vertualTour"
-import DocumentsSection from "@/components/document"
 
 
 export default function Home() {
@@ -22,7 +21,6 @@ export default function Home() {
       <AmenitiesSection />
       <VirtualTourHero />
       <GallerySection />
-      <DocumentsSection />
       <TestimonialsSection />
       <FAQSection />
       <Footer />

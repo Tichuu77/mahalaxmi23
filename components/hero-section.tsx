@@ -34,7 +34,7 @@ export default function HeroSection() {
     <>
       {/* ── NAV ── */}
       <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        className="fixed  top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
           background: scrolled
             ? 'rgba(13, 42, 33, 0.92)'
@@ -50,7 +50,7 @@ export default function HeroSection() {
             <img
               src="/Malaxmi-Final-Logo.-2png.png"
               alt="Mahalaxmi Nagar 43 Logo"
-              className="h-12 w-auto object-contain"
+              className="h-28 w-28 object-contain"
             />
           </a>
 
@@ -138,7 +138,7 @@ export default function HeroSection() {
       {/* ── HERO ── */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex items-end md:items-center overflow-hidden"
+        className="relative  min-h-screen flex items-end md:items-center overflow-hidden"
         style={{ background: '#0d2a20' }}
         aria-label="Hero section"
       >
@@ -172,16 +172,7 @@ export default function HeroSection() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-28 md:py-0">
           <div className="max-w-2xl">
-            {/* Badge */}
-            <div className="mb-5">
-              <span className="section-chip section-chip-white">
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ background: 'var(--secondary)', animation: 'pulseDot 1.8s ease-in-out infinite' }}
-                />
-                RERA &amp; NMRDA Approved · Wardha Road, Nagpur
-              </span>
-            </div>
+       
 
             {/* H1 */}
             <h1
