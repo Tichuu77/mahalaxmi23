@@ -24,7 +24,7 @@ export function Footer() {
             <img
               src="/Malaxmi-Final-Logo.-2png.png"
               alt="Mahalaxmi Infra Logo"
-              className="h-16 w-auto object-contain mb-4"
+              className="h-28 w-28 object-contain mb-4"
             />
             <p
               className="text-sm leading-relaxed mb-5"
