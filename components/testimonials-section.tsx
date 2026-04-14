@@ -73,7 +73,7 @@ export default function TestimonialsSection() {
               style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#fff' }}
             >
               Trusted by
-              <span style={{ color: 'var(--secondary)' }}> 17,111+ </span>
+              <span style={{ color: 'var(--secondary)' }}> 17,000+ </span>
               Happy Clients
             </h2>
           </div>

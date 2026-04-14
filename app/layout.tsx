@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     default: "Mahalaxmi Infra – NMRDA & RERA Approved Plots in Nagpur | Starting ₹22L",
     template: "%s | Mahalaxmi Infra Nagpur",
   },
+  icons: {
+    icon: "/Mahalaxmi Infra new Logo.png",
+    shortcut: "/Mahalaxmi Infra new Logo.png",
+    apple: "/Mahalaxmi Infra new Logo.png",
+  },
   description: "Discover premium residential plots in Nagpur at Mahalaxmi Nagar 43. NMRDA & RL approved plots near MIHAN, Wardha Road. Best investment plots with amenities. Contact: Mayur Dhomne - 95521 47036",
   keywords: [
     "plots in Nagpur",

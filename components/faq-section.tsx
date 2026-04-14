@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Plus, Minus, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const faqs = [
   {
@@ -22,6 +23,7 @@ const faqs = [
 ];
 
 export default function FAQContactSection() {
+  const router = useRouter();
   const [openIndex, setOpenIndex] = useState(0);
   const [formData, setFormData]   = useState({ name: '', phone: '', email: '', city: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,6 +47,7 @@ export default function FAQContactSection() {
       if (data.success) {
         setSubmitStatus('success');
         setFormData({ name: '', phone: '', email: '', city: '', message: '' });
+        router.push('/thank-you');
       } else {
         setSubmitStatus('error');
       }

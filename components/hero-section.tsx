@@ -206,8 +206,7 @@ export default function HeroSection() {
             <div className="flex flex-wrap gap-4 mb-10">
               {[
                 { value: '70+',    label: 'Projects' },
-                { value: '17111+', label: 'Happy Clients' },
-                { value: '80%',    label: 'Bank Funding' },
+                { value: '17000+', label: 'Happy Clients' },
                 { value: 'RERA',   label: 'Approved' },
               ].map((stat) => (
                 <div

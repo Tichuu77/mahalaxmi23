@@ -1,6 +1,7 @@
 ﻿'use client';
 import React, { useState } from 'react';
 import { Send, CheckCircle, AlertCircle, Shield, Leaf, Banknote } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const highlights = [
   {
@@ -21,6 +22,7 @@ const highlights = [
 ];
 
 export default function AboutSection() {
+  const router = useRouter();
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -43,6 +45,7 @@ export default function AboutSection() {
       if (data.success) {
         setSubmitStatus('success');
         setFormData({ name: '', phone: '', email: '', city: '', message: '' });
+        router.push('/thank-you');
       } else {
         setSubmitStatus('error');
       }
