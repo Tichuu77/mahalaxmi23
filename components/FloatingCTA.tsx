@@ -25,7 +25,7 @@ export default function FloatingCTA() {
           Call Now
         </div>
         <a
-          href="tel:+919552147036"
+          href="tel:+919327210650"
           aria-label="Call Mahalaxmi Infra"
           onMouseEnter={() => setHoveredPhone(true)}
           onMouseLeave={() => setHoveredPhone(false)}
@@ -45,7 +45,7 @@ export default function FloatingCTA() {
         <div
           className="pointer-events-none transition-all duration-200 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide"
           style={{
-            background: 'var(--secondary)',
+            background: 'var(--primary)',
             color: '#fff',
             fontFamily: 'var(--font-heading)',
             opacity: hoveredWA ? 1 : 0,
@@ -55,7 +55,7 @@ export default function FloatingCTA() {
           WhatsApp Us
         </div>
         <a
-          href="https://wa.me/919552147036"
+          href="https://wa.me/919327210650"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp Mahalaxmi Infra"
@@ -63,7 +63,7 @@ export default function FloatingCTA() {
           onMouseLeave={() => setHoveredWA(false)}
           className="bounce-wa flex items-center justify-center w-14 h-14 rounded-full shadow-xl transition-all duration-300 hover:scale-110"
           style={{
-            background: 'var(--secondary)',
+            background: 'var(--primary)',
             boxShadow: hoveredWA ? '0 8px 28px rgba(201,134,43,0.5)' : '0 4px 16px rgba(201,134,43,0.35)',
           }}
         >

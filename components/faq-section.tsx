@@ -25,7 +25,7 @@ const faqs = [
 export default function FAQContactSection() {
   const router = useRouter();
   const [openIndex, setOpenIndex] = useState(0);
-  const [formData, setFormData]   = useState({ name: '', phone: '', email: '', city: '', message: '' });
+  const [formData, setFormData]   = useState({ name: '', phone: '', city: '',requiredLocation: '',PlotSize: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -46,7 +46,7 @@ export default function FAQContactSection() {
       const data = await res.json();
       if (data.success) {
         setSubmitStatus('success');
-        setFormData({ name: '', phone: '', email: '', city: '', message: '' });
+        setFormData({ name: '', phone: '',  city: '', requiredLocation: '', PlotSize: '', message: '' });
         router.push('/thank-you');
       } else {
         setSubmitStatus('error');
@@ -155,7 +155,7 @@ export default function FAQContactSection() {
                   className="text-2xl font-bold mb-1"
                   style={{ fontFamily: 'var(--font-heading)', color: '#fff' }}
                 >
-                  Get In Touch
+                  GET IN TOUCH FUTURE PROJECT
                 </h3>
                 <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-sans)' }}>
                   Property FAQs — our team will respond within 24 hours.
@@ -188,16 +188,6 @@ export default function FAQContactSection() {
                       style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                     />
                   </div>
-                  {/* Email */}
-                  <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Email</label>
-                    <input
-                      type="email" name="email" value={formData.email} onChange={handleChange}
-                      placeholder="your@email.com"
-                      className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all"
-                      style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
-                    />
-                  </div>
                   {/* City */}
                   <div className="col-span-2 sm:col-span-1">
                     <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>City</label>
@@ -208,7 +198,26 @@ export default function FAQContactSection() {
                       style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                     />
                   </div>
+                     <div className="col-span-2 sm:col-span-1">
+                    <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Email (Optional)</label>
+                    <input
+                      type="text" name="requiredlocation" value={formData.requiredLocation} onChange={handleChange}
+                      placeholder="Preferred location or requirements"
+                      className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all"
+                      style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
+                    />
                 </div>
+                <div className="col-span-2 sm:col-span-1">
+                    <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Plot Size (Optional)</label>
+                    <input
+                      type="text" name="plotsize" value={formData.PlotSize} onChange={handleChange}
+                      placeholder="Preferred plot size"
+                      className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all"
+                      style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
+                    />
+                </div>
+                </div>
+             
 
                 {/* Message */}
                 <div>

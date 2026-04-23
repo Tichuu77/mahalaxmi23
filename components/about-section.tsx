@@ -23,7 +23,7 @@ const highlights = [
 
 export default function AboutSection() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', phone: '', requiredLocation: '', plotSize: '', city: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -44,7 +44,7 @@ export default function AboutSection() {
       const data = await res.json();
       if (data.success) {
         setSubmitStatus('success');
-        setFormData({ name: '', phone: '', email: '', city: '', message: '' });
+        setFormData({ name: '', phone: '', requiredLocation: '', plotSize: '', city: '', message: '' });
         router.push('/thank-you');
       } else {
         setSubmitStatus('error');
@@ -179,22 +179,32 @@ export default function AboutSection() {
                         style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                       />
                     </div>
-                    {/* Email */}
-                    <div className="col-span-2 sm:col-span-1">
-                      <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Email</label>
-                      <input
-                        type="email" name="email" value={formData.email} onChange={handleChange}
-                        placeholder="your@email.com"
-                        className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all"
-                        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
-                      />
-                    </div>
                     {/* City */}
                     <div className="col-span-2 sm:col-span-1">
                       <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>City</label>
                       <input
                         type="text" name="city" value={formData.city} onChange={handleChange}
                         placeholder="Your city"
+                        className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all"
+                        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
+                      />
+                    </div>
+                    {/* Preferred Location/Requirements */}
+                    <div className="col-span-2 sm:col-span-1">
+                      <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Preferred Location/Requirements</label>
+                      <input
+                        type="text" name="requiredLocation" value={formData.requiredLocation} onChange={handleChange}
+                        placeholder="Preferred location or requirements"
+                        className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all"
+                        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
+                      />
+                    </div>
+                    {/* Plot Size */}
+                    <div className="col-span-2 sm:col-span-1">
+                      <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Plot Size (Optional)</label>
+                      <input
+                        type="text" name="plotSize" value={formData.plotSize} onChange={handleChange}
+                        placeholder="Preferred plot size (e.g., 1500 sqft)"
                         className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all"
                         style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                       />

@@ -1,20 +1,20 @@
 ﻿'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone,MapPin } from 'lucide-react';
 
 const navLinks = [
-  { name: 'Overview',     href: '#overview' },
-  { name: 'Amenities',    href: '#amenities' },
-  { name: 'Gallery',      href: '#gallery' },
+  { name: 'Overview', href: '#overview' },
+  { name: 'Amenities', href: '#amenities' },
+  { name: 'Gallery', href: '#gallery' },
   { name: 'Testimonials', href: '#testimonials' },
-  { name: 'FAQ',          href: '#faq_sec' },
+  { name: 'FAQ', href: '#faq_sec' },
 ];
 
 export default function HeroSection() {
-  const [isMenuOpen, setIsMenuOpen]   = useState(false);
-  const [scrolled, setScrolled]       = useState(false);
-  const [activeLink, setActiveLink]   = useState('');
-  const [isMobile, setIsMobile]       = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -80,12 +80,12 @@ export default function HeroSection() {
 
           {/* Desktop CTA */}
           <a
-            href="tel:+919552147036"
+            href="tel:+919327210650"
             className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm uppercase tracking-wide transition-all hover:scale-105"
             style={{ background: 'var(--secondary)', color: '#fff', fontFamily: 'var(--font-heading)' }}
           >
             <Phone size={15} />
-            +91 95521 47036
+            +91 9327210650
           </a>
 
           {/* Mobile hamburger */}
@@ -170,16 +170,16 @@ export default function HeroSection() {
         />
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-28 md:py-0">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-28 md:mt-20 md:py-6">
           <div className="max-w-2xl">
-       
+
 
             {/* H1 */}
             <h1
               className="font-bold mb-4 leading-tight"
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(2.2rem, 7vw, 4.5rem)',
+                fontSize: 'clamp(2.2rem, 6vw, 4.5rem)',
                 color: '#fff',
                 textShadow: '0 4px 24px rgba(0,0,0,0.5)',
                 lineHeight: 1.08,
@@ -202,12 +202,30 @@ export default function HeroSection() {
               green living, and long-term growth.
             </p>
 
+            {/* Location */}
+            <div className="mb-3 flex items-between gap-4">
+              <MapPin size={50} style={{ color: 'var(--secondary)' }} />
+                     <p  className="mb-3 leading-relaxed"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                color: 'rgba(255,255,255,0.82)',
+                fontSize: 'clamp(1rem, 1.2vw, 1rem)',
+              }}>
+              AIRPORT-5MIN
+              BELTARODI D-MART-3MIN
+              WARDHA ROAD-3MIN
+              GOVERMENT ENGINEERING COLLAGE-3MIN
+              NEW MANISH NAGAR-4MIN
+            </p>
+
+            </div>
+       
             {/* Stats */}
             <div className="flex flex-wrap gap-4 mb-10">
               {[
-                { value: '70+',    label: 'Projects' },
+                { value: '70+', label: 'Projects' },
                 { value: '17000+', label: 'Happy Clients' },
-                { value: 'RERA',   label: 'Approved' },
+                { value: 'RERA', label: 'Approved' },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -231,7 +249,7 @@ export default function HeroSection() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="#faq_sec">
+              <a href="#overview">
                 <button
                   className="btn-gold w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest"
                   style={{ fontFamily: 'var(--font-heading)' }}

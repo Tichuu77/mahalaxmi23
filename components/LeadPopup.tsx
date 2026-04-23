@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { X, Send, CheckCircle, AlertCircle, Phone, Gift } from 'lucide-react';
 
-type FormData = { name: string; phone: string; email: string; city: string };
+type FormData = { name: string; phone:  string; city: string; requiredLocation: string; plotSize: string };
 type Status   = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function LeadPopup() {
   const [open,   setOpen]   = useState(false);
   const [visible, setVisible] = useState(false); // controls CSS transition
-  const [form,   setForm]   = useState<FormData>({ name: '', phone: '', email: '', city: '' });
+  const [form,   setForm]   = useState<FormData>({ name: '', phone: '',  city: '', requiredLocation: '', plotSize: '' });
   const [status, setStatus] = useState<Status>('idle');
 
   /* Show on every page load after 3 s */
@@ -217,13 +217,27 @@ export default function LeadPopup() {
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
                     />
                   </div>
-                  {/* Email */}
-                  <div style={{ gridColumn: '1 / -1' }}>
-                    <label style={labelStyle}>Email</label>
+                  
+                  {/* Required Location */}
+                  <div>
+                    <label style={labelStyle}>Preferred Location</label>
                     <input
-                      type="email" name="email"
-                      value={form.email} onChange={handleChange}
-                      placeholder="your@email.com"
+                      type="text" name="requiredLocation"
+                      value={form.requiredLocation} onChange={handleChange}
+                      placeholder="e.g. Near Airport, Near IT Park"
+                      style={inputStyle}
+                      onFocus={e => (e.target.style.borderColor = 'var(--secondary, #C9862b)')}
+                      onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
+                    />
+                  </div>
+                  
+                  {/* Plot Size */}
+                  <div>
+                    <label style={labelStyle}>Plot Size (sq.ft.)</label>
+                    <input
+                      type="text" name="plotSize"
+                      value={form.plotSize} onChange={handleChange}
+                      placeholder="e.g. 1200, 1500"
                       style={inputStyle}
                       onFocus={e => (e.target.style.borderColor = 'var(--secondary, #C9862b)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}

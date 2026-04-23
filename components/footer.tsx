@@ -130,16 +130,16 @@ export function Footer() {
                 <p className="text-sm font-bold mb-1" style={{ color: '#fff', fontFamily: 'var(--font-heading)' }}>
                   Mayur Dhomne
                 </p>
-                <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-sans)' }}>Director, Mahalaxmi Infra</p>
+                <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-sans)' }}>Wealth Advisor, Mahalaxmi Infra</p>
               </li>
               <li>
                 <a
-                  href="tel:+919552147036"
+                  href="tel:+919327210650"
                   className="flex items-center gap-2.5 text-sm hover:text-white transition-colors group"
                   style={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-sans)' }}
                 >
                   <Phone size={14} color="var(--secondary)" />
-                  +91 95521 47036
+                  +91 9327210650
                 </a>
               </li>
               <li>
