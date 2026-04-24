@@ -5,6 +5,7 @@ import AmenitiesSection  from "@/components/amenities-section"
 import GallerySection  from "@/components/gallery-section"
 import TestimonialsSection  from "@/components/testimonials-section"
 import FAQSection  from "@/components/faq-section"
+import MiniBlogsSection from "@/components/mini-blogs-section"
 import { Footer } from "@/components/footer"
 import FloatingCTA from "@/components/FloatingCTA"
 import FeaturesSwitcher from "@/components/FeaturesSwitcher"
@@ -22,6 +23,7 @@ export default function Home() {
       <VirtualTourHero />
       <GallerySection />
       <TestimonialsSection />
+      <MiniBlogsSection />
       <FAQSection />
       <Footer />
       <FloatingCTA />
