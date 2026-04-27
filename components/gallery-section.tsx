@@ -2,15 +2,23 @@
 import React, { useState, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
-type GalleryItem = { id: number; src: string; alt: string; span: string; tag: string };
+type GalleryItem = { id: number; src: string; alt?:string; span?: string };
 
 const galleryItems: GalleryItem[] = [
-  { id: 1, src: '/gallery_4.jpg', alt: 'Master Layout — Full Aerial View',     span: 'col-span-2 row-span-2', tag: 'Project Overview' },
-  { id: 2, src: '/gallery_1.jpg', alt: 'Garden Seating Lounge & Pergola',      span: 'col-span-1 row-span-1', tag: 'Lifestyle' },
-  { id: 3, src: '/gallery_5.jpg', alt: "Children's Play Area",                 span: 'col-span-1 row-span-1', tag: 'Amenities' },
-  { id: 4, src: '/gallery_2.jpg', alt: 'Aerial Amenities & Central Park',      span: 'col-span-1 row-span-1', tag: 'Aerial View' },
-  { id: 5, src: '/gallery_3.jpg', alt: 'Corner Plot Landscape & Garden Strip', span: 'col-span-2 row-span-1', tag: 'Green Spaces' },
-];
+  { id: 1, src: '/gallery_4.jpg', alt: 'Gallery Image 1' , span: 'row-span-2'},
+  { id: 2, src: '/gallery_1.jpg', alt: 'Gallery Image 2' , span: 'row-span-1'},
+  { id: 3, src: '/gallery_5.jpg', alt: 'Gallery Image 3' , span: 'row-span-3'},
+  { id: 4, src: '/gallery_2.jpg', alt: 'Gallery Image 4' , span: 'row-span-1'},
+  { id: 5, src: '/gallery_3.jpg', alt: 'Gallery Image 5' , span: 'row-span-2'},
+  { id: 6, src: '/gallery_7.jpeg', alt: 'Gallery Image 6' , span: 'row-span-1'},
+  { id: 7, src: '/gallery_8.jpeg', alt: 'Gallery Image 7' , span: 'row-span-2'},
+  { id: 8, src: '/gallery_9.jpeg', alt: 'Gallery Image 8' , span: 'row-span-1'},
+  { id: 9, src: '/gallery_10.jpeg', alt: 'Gallery Image 9' , span: 'row-span-2'},
+  { id: 10, src: '/gallery_11.jpeg', alt: 'Gallery Image 10' , span: 'row-span-1'},
+  { id: 11, src: '/gallery_12.jpeg', alt: 'Gallery Image 11' , span: 'row-span-2'},
+  { id: 12, src: '/gallery_13.jpeg', alt: 'Gallery Image 12' , span: 'row-span-1'},
+  { id: 13, src: '/gallery_14.jpeg', alt: 'Gallery Image 13' , span: 'row-span-2'},
+  { id: 14, src: '/gallery_15.jpeg', alt: 'Gallery Image 14' , span: 'row-span-2'}];
 
 export default function GallerySection() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -92,7 +100,7 @@ export default function GallerySection() {
           ))}
         </div>
 
-        {/* DESKTOP: masonry-style CSS grid — 3-col so all 5 tiles fill perfectly */}
+        {/* DESKTOP: masonry-style CSS grid — 3-col so all tiles fill perfectly */}
         <div
           className="hidden md:grid gap-4"
           style={{ gridTemplateColumns: 'repeat(3, 1fr)', gridAutoRows: '240px' }}
@@ -109,13 +117,7 @@ export default function GallerySection() {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              {/* Always-visible tag badge */}
-              <div
-                className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest opacity-90"
-                style={{ background: 'var(--secondary)', color: '#fff', fontFamily: 'var(--font-heading)' }}
-              >
-                {item.tag}
-              </div>
+              
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute inset-0 flex items-center justify-center">

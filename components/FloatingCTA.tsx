@@ -15,7 +15,7 @@ export default function FloatingCTA() {
         <div
           className="pointer-events-none transition-all duration-200 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide"
           style={{
-            background: 'var(--primary)',
+            background: 'var(--secondary)',
             color: '#fff',
             fontFamily: 'var(--font-heading)',
             opacity: hoveredPhone ? 1 : 0,
@@ -31,8 +31,8 @@ export default function FloatingCTA() {
           onMouseLeave={() => setHoveredPhone(false)}
           className="flex items-center justify-center w-14 h-14 rounded-full shadow-xl transition-all duration-300 hover:scale-110"
           style={{
-            background: 'var(--primary)',
-            boxShadow: hoveredPhone ? '0 8px 28px rgba(48,83,74,0.5)' : '0 4px 16px rgba(48,83,74,0.35)',
+            background: 'var(--secondary)',
+            boxShadow: hoveredPhone ? '0 8px 28px rgba(201,134,43,0.5)' : '0 4px 16px rgba(201,134,43,0.35)',
           }}
         >
           <Phone size={22} color="#fff" />
@@ -45,7 +45,7 @@ export default function FloatingCTA() {
         <div
           className="pointer-events-none transition-all duration-200 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide"
           style={{
-            background: 'var(--primary)',
+            background: 'var(--secondary)',
             color: '#fff',
             fontFamily: 'var(--font-heading)',
             opacity: hoveredWA ? 1 : 0,
@@ -63,7 +63,7 @@ export default function FloatingCTA() {
           onMouseLeave={() => setHoveredWA(false)}
           className="bounce-wa flex items-center justify-center w-14 h-14 rounded-full shadow-xl transition-all duration-300 hover:scale-110"
           style={{
-            background: 'var(--primary)',
+            background: 'var(--secondary)',
             boxShadow: hoveredWA ? '0 8px 28px rgba(201,134,43,0.5)' : '0 4px 16px rgba(201,134,43,0.35)',
           }}
         >

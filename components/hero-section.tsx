@@ -1,6 +1,7 @@
 ﻿'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Phone,MapPin } from 'lucide-react';
+import { Menu, X, Phone, MapPin } from 'lucide-react';
+import { usePopup } from './popup-context';
 
 const navLinks = [
   { name: 'Overview', href: '#overview' },
@@ -16,6 +17,7 @@ export default function HeroSection() {
   const [activeLink, setActiveLink] = useState('');
   const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
+  const { openPopup } = usePopup();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -189,6 +191,28 @@ export default function HeroSection() {
               <span style={{ color: 'var(--secondary)' }}>Nagar 43</span>
             </h1>
 
+             {/* Price */}
+            <p
+              className="text-3xl font-bold mb-4"
+              style={{
+                color: 'var(--secondary)',
+                fontFamily: 'var(--font-heading)',
+              }}
+            >
+              ₹32.5 LAKH
+            </p>
+
+             {/* RERA No */}
+            <p
+              className="text-lg font-semibold mb-4"
+              style={{
+                color: 'var(--secondary)',
+                fontFamily: 'var(--font-heading)',
+              }}
+            >
+              RERA No:  A51000042498
+            </p>
+
             {/* Subheading */}
             <p
               className="mb-8 leading-relaxed"
@@ -204,24 +228,71 @@ export default function HeroSection() {
 
             {/* Location */}
             <div className="mb-3 flex items-between gap-4">
-              <MapPin size={50} style={{ color: 'var(--secondary)' }} />
-                     <p  className="mb-3 leading-relaxed"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                color: 'rgba(255,255,255,0.82)',
-                fontSize: 'clamp(1rem, 1.2vw, 1rem)',
-              }}>
-              AIRPORT-5MIN
-              BELTARODI D-MART-3MIN
-              WARDHA ROAD-3MIN
-              GOVERMENT ENGINEERING COLLAGE-3MIN
-              NEW MANISH NAGAR-4MIN
-            </p>
+              <MapPin size={30} style={{ color: 'var(--secondary)' }} />
+
+              <div className="mb-3 leading-relaxed">
+                <p className="mb-2 leading-relaxed"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    color: 'rgba(255,255,255,0.82)',
+                    fontSize: 'clamp(1rem, 1.2vw, 1rem)',
+                  }}>AIRPORT-5MIN</p>
+                <p className="mb-2 leading-relaxed"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    color: 'rgba(255,255,255,0.82)',
+                    fontSize: 'clamp(1rem, 1.2vw, 1rem)',
+                  }}>BELTARODI D-MART-3MIN</p>
+                <p className="mb-2 leading-relaxed"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    color: 'rgba(255,255,255,0.82)',
+                    fontSize: 'clamp(1rem, 1.2vw, 1rem)',
+                  }}>WARDHA ROAD-3MIN</p>
+                <p className="mb-2 leading-relaxed"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    color: 'rgba(255,255,255,0.82)',
+                    fontSize: 'clamp(1rem, 1.2vw, 1rem)',
+                  }}>GOVERMENT ENGINEERING COLLAGE-3MIN</p>
+                <p className="mb-2 leading-relaxed"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    color: 'rgba(255,255,255,0.82)',
+                    fontSize: 'clamp(1rem, 1.2vw, 1rem)',
+                  }}>NEW MANISH NAGAR-4MIN</p>
+              </div>
 
             </div>
-       
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-10">
+              <button
+                onClick={() => {
+                  console.log('Enquire Now clicked');
+                  openPopup();
+                }}
+                className="btn-gold w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                Enquire Now
+              </button>
+              <a href="#gallery">
+                <button
+                  className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest transition-all hover:bg-white/10"
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    border: '2px solid rgba(255,255,255,0.4)',
+                    color: '#fff',
+                  }}
+                >
+                  View Gallery
+                </button>
+              </a>
+            </div>
+
             {/* Stats */}
-            <div className="flex flex-wrap gap-4 mb-10">
+            <div className="flex flex-wrap gap-4 ">
               {[
                 { value: '70+', label: 'Projects' },
                 { value: '17000+', label: 'Happy Clients' },
@@ -245,30 +316,6 @@ export default function HeroSection() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a href="#overview">
-                <button
-                  className="btn-gold w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest"
-                  style={{ fontFamily: 'var(--font-heading)' }}
-                >
-                  Enquire Now
-                </button>
-              </a>
-              <a href="#gallery">
-                <button
-                  className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest transition-all hover:bg-white/10"
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    border: '2px solid rgba(255,255,255,0.4)',
-                    color: '#fff',
-                  }}
-                >
-                  View Gallery
-                </button>
-              </a>
             </div>
           </div>
         </div>

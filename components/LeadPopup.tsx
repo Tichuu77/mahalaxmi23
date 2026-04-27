@@ -1,29 +1,43 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { X, Send, CheckCircle, AlertCircle, Phone, Gift } from 'lucide-react';
+import { usePopup } from './popup-context';
 
 type FormData = { name: string; phone:  string; city: string; requiredLocation: string; plotSize: string };
 type Status   = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function LeadPopup() {
-  const [open,   setOpen]   = useState(false);
+  const { isOpen, closePopup } = usePopup();
+  const [autoOpen, setAutoOpen] = useState(false);
   const [visible, setVisible] = useState(false); // controls CSS transition
-  const [form,   setForm]   = useState<FormData>({ name: '', phone: '',  city: '', requiredLocation: '', plotSize: '' });
+  const [form, setForm] = useState<FormData>({ name: '', phone: '', city: '', requiredLocation: '', plotSize: '' });
   const [status, setStatus] = useState<Status>('idle');
 
   /* Show on every page load after 3 s */
   useEffect(() => {
     const timer = setTimeout(() => {
-      setOpen(true);
-      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
+      setAutoOpen(true);
+      setVisible(true);
     }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    console.log('LeadPopup isOpen changed:', isOpen);
+    if (isOpen) {
+      setVisible(true);
+    } else if (!autoOpen) {
+      setVisible(false);
+    }
+  }, [isOpen, autoOpen]);
+
   const close = () => {
     setVisible(false);
-    setTimeout(() => setOpen(false), 350);
+    setTimeout(() => {
+      closePopup();
+      setAutoOpen(false);
+    }, 350);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -57,7 +71,7 @@ export default function LeadPopup() {
     }
   };
 
-  if (!open) return null;
+  if (!isOpen && !autoOpen) return null;
 
   return (
     <>

@@ -3,16 +3,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
-  Waypoints,
-  Waves,
-  Zap,
-  Trees,
-  Flower,
-  Droplets,
-  LayoutGrid,
-  Factory,
-  Fence,
-  HeartHandshake,
+  Milestone,
+  Trash2,
+  Plug,
+  Smile,
+  Leaf,
+  CloudRain,
+  Users,
+  Filter,
+  Shield,
+  Brain,
 } from 'lucide-react';
 
 /* ── Image Showcase ────────────────────────────────────────── */
@@ -24,57 +24,57 @@ const showcaseImages = [
   { src: '/gallery_4.jpg', label: 'Master Layout Plan' },
 ];
 
-/* ── Updated Amenities (Lucide Icons) ─────────────── */
+/* ── Amenities with clear, understandable icons ─────────────── */
 const amenities = [
   {
     title: 'Internal Cement Concrete Road',
     desc: 'A paved road within the premises connecting all major parts.',
-    icon: Waypoints,
+    icon: Milestone, // 🛣️ clearly represents a road/path
   },
   {
     title: 'Sewage Line',
     desc: 'Underground waste disposal system in layout.',
-    icon: Waves,
+    icon: Trash2, // 🗑️ clearly represents waste/sewage disposal
   },
   {
     title: 'Electric Network With Transformer',
     desc: 'Electricity distribution infrastructure for plots and amenities.',
-    icon: Zap,
+    icon: Plug, // 🔌 clearly represents electricity/power supply
   },
   {
     title: 'Kids Park',
     desc: 'A playground for children in layout.',
-    icon: Trees,
+    icon: Smile, // 😊 clearly represents children/play/fun
   },
   {
     title: 'Garden',
     desc: 'Landscaped green space with plantation for better experience.',
-    icon: Flower,
+    icon: Leaf, // 🍃 clearly represents garden/greenery/nature
   },
   {
     title: 'Storm Water Drainage',
     desc: 'Efficient stormwater management system across the entire layout.',
-    icon: Droplets,
+    icon: CloudRain, // 🌧️ clearly represents rain/stormwater
   },
   {
     title: 'Open Space Public Utility',
     desc: 'An open-use area available to all the residents in the layout.',
-    icon: LayoutGrid,
+    icon: Users, // 👥 clearly represents public/community space
   },
   {
     title: 'Sewage Treatment Plant',
     desc: 'A dedicated sewage treatment plant for effective wastewater management.',
-    icon: Factory,
+    icon: Filter, // 🔽 clearly represents filtering/treatment of water
   },
   {
     title: 'Open Space Compound Wall',
     desc: 'Fenced open area boundary to the space provided.',
-    icon: Fence,
+    icon: Shield, // 🛡️ clearly represents boundary/protection/enclosure
   },
   {
     title: 'Meditation Centre',
     desc: 'Dedicated space for contemplation and relaxation.',
-    icon: HeartHandshake,
+    icon: Brain, // 🧠 clearly represents mental wellness/meditation
   },
 ];
 
@@ -222,7 +222,7 @@ function AmenityRow({
 
   return (
     <div className="group flex items-start gap-4 p-5 rounded-2xl bg-white border transition-all hover:shadow-lg hover:-translate-y-0.5">
-      
+
       {/* Icon */}
       <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-[#30534A]/10">
         <Icon className="w-6 h-6 text-[#C9862b]" strokeWidth={2} />

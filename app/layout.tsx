@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import LeadPopup from "@/components/LeadPopup"
+import { PopupProvider } from "@/components/popup-context"
 import "./globals.css"
 
 
@@ -201,9 +202,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
-        {children}
-        <LeadPopup />
+      <body suppressHydrationWarning>
+        <PopupProvider>
+          {children}
+          <LeadPopup />
+        </PopupProvider>
         <Analytics />
       </body>
     </html>
