@@ -228,39 +228,58 @@ export default function HeroSection() {
 
             {/* Location */}
             <div className="mb-3 flex items-between gap-4">
-              <MapPin size={30} style={{ color: 'var(--secondary)' }} />
-
+              
               <div className="mb-3 leading-relaxed">
-                <p className="mb-2 leading-relaxed"
+                <div className='flex gap-3'>
+                  <MapPin size={30} style={{ color: 'var(--secondary)' }} />
+                   <p className="mb-2 leading-relaxed"
                   style={{
                     fontFamily: 'var(--font-sans)',
                     color: 'rgba(255,255,255,0.82)',
                     fontSize: 'clamp(1rem, 1.2vw, 1rem)',
-                  }}>AIRPORT-5MIN</p>
-                <p className="mb-2 leading-relaxed"
+                  }}>AIRPORT-3MIN</p>
+                </div>
+                
+                <div className='flex gap-3'>
+                    <MapPin size={30} style={{ color: 'var(--secondary)' }} />
+                      <p className="mb-2 leading-relaxed"
                   style={{
                     fontFamily: 'var(--font-sans)',
                     color: 'rgba(255,255,255,0.82)',
                     fontSize: 'clamp(1rem, 1.2vw, 1rem)',
-                  }}>BELTARODI D-MART-3MIN</p>
-                <p className="mb-2 leading-relaxed"
+                  }}>BELTARODI D-MART -3MIN</p>
+                </div>
+            
+                <div className='flex gap-3'>
+                    <MapPin size={30} style={{ color: 'var(--secondary)' }} />
+                     <p className="mb-2 leading-relaxed"
                   style={{
                     fontFamily: 'var(--font-sans)',
                     color: 'rgba(255,255,255,0.82)',
                     fontSize: 'clamp(1rem, 1.2vw, 1rem)',
                   }}>WARDHA ROAD-3MIN</p>
-                <p className="mb-2 leading-relaxed"
+                </div>
+             
+                <div className='flex gap-3'>
+                    <MapPin size={30} style={{ color: 'var(--secondary)' }} />
+                     <p className="mb-2 leading-relaxed"
                   style={{
                     fontFamily: 'var(--font-sans)',
                     color: 'rgba(255,255,255,0.82)',
                     fontSize: 'clamp(1rem, 1.2vw, 1rem)',
                   }}>GOVERMENT ENGINEERING COLLAGE-3MIN</p>
-                <p className="mb-2 leading-relaxed"
+                </div>
+
+                <div className='flex gap-3'>
+                    <MapPin size={30} style={{ color: 'var(--secondary)' }} />
+                     <p className="mb-2 leading-relaxed"
                   style={{
                     fontFamily: 'var(--font-sans)',
                     color: 'rgba(255,255,255,0.82)',
                     fontSize: 'clamp(1rem, 1.2vw, 1rem)',
                   }}>NEW MANISH NAGAR-4MIN</p>
+                </div>
+                
               </div>
 
             </div>

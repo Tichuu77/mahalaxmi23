@@ -52,14 +52,14 @@ export default function FeaturesSection() {
   const tabStripRef = useRef(null);
   const isAnimating = useRef(false);
 
-  useEffect(() => {
-    const strip = tabStripRef.current;
-    if (!strip) return;
-    const activeBtn = strip.children[activeIndex];
-    if (activeBtn) {
-      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-  }, [activeIndex]);
+  // useEffect(() => {
+  //   const strip = tabStripRef.current;
+  //   if (!strip) return;
+  //   const activeBtn = strip.children[activeIndex];
+  //   if (activeBtn) {
+  //     activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  //   }
+  // }, [activeIndex]);
 
   const goTo = (index) => {
     if (index === activeIndex || isAnimating.current) return;

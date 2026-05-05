@@ -3,25 +3,40 @@ import React, { useEffect, useState } from 'react';
 import { X, Send, CheckCircle, AlertCircle, Phone, Gift } from 'lucide-react';
 import { usePopup } from './popup-context';
 
-type FormData = { name: string; phone:  string; city: string; requiredLocation: string; plotSize: string };
-type Status   = 'idle' | 'submitting' | 'success' | 'error';
+type FormData = { name: string; phone: string; requiredLocation: string; };
+type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function LeadPopup() {
   const { isOpen, closePopup } = usePopup();
   const [autoOpen, setAutoOpen] = useState(false);
   const [visible, setVisible] = useState(false); // controls CSS transition
-  const [form, setForm] = useState<FormData>({ name: '', phone: '', city: '', requiredLocation: '', plotSize: '' });
+  const [form, setForm] = useState<FormData>({ name: '', phone: '', requiredLocation: '', });
   const [status, setStatus] = useState<Status>('idle');
 
   /* Show on every page load after 3 s */
-  useEffect(() => {
-    const timer = setTimeout(() => {
+useEffect(() => {
+  let hasOpened = false;
+
+  const handleScroll = () => {
+    if (hasOpened) return;
+
+    // optional: trigger after user scrolls some distance
+    if (window.scrollY > 150) {
+      hasOpened = true;
       setAutoOpen(true);
       setVisible(true);
-    }, 3000);
 
-    return () => clearTimeout(timer);
-  }, []);
+      // remove listener after first trigger
+      window.removeEventListener('scroll', handleScroll);
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, []);
 
   useEffect(() => {
     console.log('LeadPopup isOpen changed:', isOpen);
@@ -219,19 +234,7 @@ export default function LeadPopup() {
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
                     />
                   </div>
-                  {/* City */}
-                  <div>
-                    <label style={labelStyle}>City</label>
-                    <input
-                      type="text" name="city"
-                      value={form.city} onChange={handleChange}
-                      placeholder="Your city"
-                      style={inputStyle}
-                      onFocus={e => (e.target.style.borderColor = 'var(--secondary, #C9862b)')}
-                      onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-                    />
-                  </div>
-                  
+
                   {/* Required Location */}
                   <div>
                     <label style={labelStyle}>Preferred Location</label>
@@ -244,19 +247,8 @@ export default function LeadPopup() {
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
                     />
                   </div>
-                  
-                  {/* Plot Size */}
-                  <div>
-                    <label style={labelStyle}>Plot Size (sq.ft.)</label>
-                    <input
-                      type="text" name="plotSize"
-                      value={form.plotSize} onChange={handleChange}
-                      placeholder="e.g. 1200, 1500"
-                      style={inputStyle}
-                      onFocus={e => (e.target.style.borderColor = 'var(--secondary, #C9862b)')}
-                      onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-                    />
-                  </div>
+
+
                 </div>
 
                 {/* Submit */}

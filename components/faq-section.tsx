@@ -25,7 +25,7 @@ const faqs = [
 export default function FAQContactSection() {
   const router = useRouter();
   const [openIndex, setOpenIndex] = useState(0);
-  const [formData, setFormData]   = useState({ name: '', phone: '', city: '',requiredLocation: '',PlotSize: '', message: '' });
+  const [formData, setFormData]   = useState({ name: '', phone: '',  requiredLocation: '' , message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -46,7 +46,7 @@ export default function FAQContactSection() {
       const data = await res.json();
       if (data.success) {
         setSubmitStatus('success');
-        setFormData({ name: '', phone: '',  city: '', requiredLocation: '', PlotSize: '', message: '' });
+        setFormData({ name: '', phone: '',   requiredLocation: '', message: '' });
         router.push('/thank-you');
       } else {
         setSubmitStatus('error');
@@ -188,16 +188,7 @@ export default function FAQContactSection() {
                       style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                     />
                   </div>
-                  {/* City */}
-                  <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>City</label>
-                    <input
-                      type="text" name="city" value={formData.city} onChange={handleChange}
-                      placeholder="Your city"
-                      className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all"
-                      style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
-                    />
-                  </div>
+                
                      <div className="col-span-2 sm:col-span-1">
                     <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Email (Optional)</label>
                     <input
@@ -207,15 +198,7 @@ export default function FAQContactSection() {
                       style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                     />
                 </div>
-                <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Plot Size (Optional)</label>
-                    <input
-                      type="text" name="plotsize" value={formData.PlotSize} onChange={handleChange}
-                      placeholder="Preferred plot size"
-                      className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all"
-                      style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontFamily: 'var(--font-sans)' }}
-                    />
-                </div>
+                
                 </div>
              
 

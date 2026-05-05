@@ -23,7 +23,7 @@ const highlights = [
 
 export default function AboutSection() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ name: '', phone: '', requiredLocation: '', plotSize: '', city: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', phone: '', requiredLocation: '',  message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -44,7 +44,7 @@ export default function AboutSection() {
       const data = await res.json();
       if (data.success) {
         setSubmitStatus('success');
-        setFormData({ name: '', phone: '', requiredLocation: '', plotSize: '', city: '', message: '' });
+        setFormData({ name: '', phone: '', requiredLocation: '',   message: '' });
         router.push('/thank-you');
       } else {
         setSubmitStatus('error');
@@ -76,59 +76,7 @@ export default function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-start">
 
-          {/* ── LEFT: Editorial content ── */}
-          <div className="scroll-fade">
-            <span className="section-chip mb-5 block w-fit">Project Overview</span>
-
-            <h2
-              className="heading-underline mb-8 leading-tight"
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-                color: 'var(--primary)',
-              }}
-            >
-              Where Elite Living Meets<br />Exceptional Growth.
-            </h2>
-
-            <p
-              className="mb-8 leading-relaxed"
-              style={{ fontFamily: 'var(--font-sans)', color: '#4a5568', fontSize: '1.05rem' }}
-            >
-              Experience the pinnacle of urban planning at Mahalaxmi Nagar 43. This isn't just
-              a layout — it's a canvas for your dreams. Designed for those who seek exclusivity,
-              our NIT / NMRDA sanctioned plots offer unmatched value and lifestyle.
-            </p>
-
-            {/* Feature rows */}
-            <div className="space-y-5">
-              {highlights.map(({ icon: Icon, title, desc }) => (
-                <div
-                  key={title}
-                  className="flex items-start gap-4 p-4 rounded-2xl transition-all hover:shadow-md"
-                  style={{ background: 'rgba(48,83,74,0.06)', border: '1px solid rgba(48,83,74,0.1)' }}
-                >
-                  <div
-                    className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
-                    style={{ background: 'var(--primary)' }}
-                  >
-                    <Icon size={20} color="var(--secondary)" />
-                  </div>
-                  <div>
-                    <p
-                      className="font-bold mb-1"
-                      style={{ fontFamily: 'var(--font-heading)', fontSize: '0.92rem', color: 'var(--primary)' }}
-                    >
-                      {title}
-                    </p>
-                    <p style={{ fontFamily: 'var(--font-sans)', color: '#667', fontSize: '0.92rem' }}>
-                      {desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+         
 
           {/* ── RIGHT: Glassmorphism inquiry form ── */}
           <div className="scroll-fade-delay-1">
@@ -179,16 +127,7 @@ export default function AboutSection() {
                         style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                       />
                     </div>
-                    {/* City */}
-                    <div className="col-span-2 sm:col-span-1">
-                      <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>City</label>
-                      <input
-                        type="text" name="city" value={formData.city} onChange={handleChange}
-                        placeholder="Your city"
-                        className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all"
-                        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
-                      />
-                    </div>
+                     
                     {/* Preferred Location/Requirements */}
                     <div className="col-span-2 sm:col-span-1">
                       <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Preferred Location/Requirements</label>
@@ -199,16 +138,7 @@ export default function AboutSection() {
                         style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
                       />
                     </div>
-                    {/* Plot Size */}
-                    <div className="col-span-2 sm:col-span-1">
-                      <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wider" style={{ color: 'var(--secondary)', fontFamily: 'var(--font-heading)' }}>Plot Size (Optional)</label>
-                      <input
-                        type="text" name="plotSize" value={formData.plotSize} onChange={handleChange}
-                        placeholder="Preferred plot size (e.g., 1500 sqft)"
-                        className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all"
-                        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontFamily: 'var(--font-sans)' }}
-                      />
-                    </div>
+                   
                   </div>
 
                   {/* Message */}
@@ -245,6 +175,60 @@ export default function AboutSection() {
                   )}
                 </form>
               </div>
+            </div>
+          </div>
+
+           {/* ── LEFT: Editorial content ── */}
+          <div className="scroll-fade">
+            <span className="section-chip mb-5 block w-fit">Project Overview</span>
+
+            <h2
+              className="heading-underline mb-8 leading-tight"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.8rem, 4vw, 3rem)',
+                color: 'var(--primary)',
+              }}
+            >
+              Where Elite Living Meets<br />Exceptional Growth.
+            </h2>
+
+            <p
+              className="mb-8 leading-relaxed"
+              style={{ fontFamily: 'var(--font-sans)', color: '#4a5568', fontSize: '1.05rem' }}
+            >
+              Experience the pinnacle of urban planning at Mahalaxmi Nagar 43. This isn't just
+              a layout — it's a canvas for your dreams. Designed for those who seek exclusivity,
+              our NIT / NMRDA sanctioned plots offer unmatched value and lifestyle.
+            </p>
+
+            {/* Feature rows */}
+            <div className="space-y-5">
+              {highlights.map(({ icon: Icon, title, desc }) => (
+                <div
+                  key={title}
+                  className="flex items-start gap-4 p-4 rounded-2xl transition-all hover:shadow-md"
+                  style={{ background: 'rgba(48,83,74,0.06)', border: '1px solid rgba(48,83,74,0.1)' }}
+                >
+                  <div
+                    className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
+                    style={{ background: 'var(--primary)' }}
+                  >
+                    <Icon size={20} color="var(--secondary)" />
+                  </div>
+                  <div>
+                    <p
+                      className="font-bold mb-1"
+                      style={{ fontFamily: 'var(--font-heading)', fontSize: '0.92rem', color: 'var(--primary)' }}
+                    >
+                      {title}
+                    </p>
+                    <p style={{ fontFamily: 'var(--font-sans)', color: '#667', fontSize: '0.92rem' }}>
+                      {desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
