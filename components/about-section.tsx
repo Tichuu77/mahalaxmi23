@@ -176,6 +176,33 @@ export default function AboutSection() {
                 </form>
               </div>
             </div>
+                {/* Stats */}
+            <div className="flex flex-wrap gap-4 mt-5">
+              {[
+                { value: '70+', label: 'Projects' },
+                { value: '17000+', label: 'Happy Clients' },
+                { value: 'RERA', label: 'Approved' },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  style={{backgroundColor:'var(--primary)'}}
+                  className="glass-card rounded-xl px-5 py-4 min-w-[110px] text-center"
+                >
+                  <div
+                    className="font-bold leading-none mb-1"
+                    style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.4rem, 3.5vw, 2rem)',backgroundColor: 'var(--primary)', color: 'var(--background)' }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    className="text-xs font-medium uppercase tracking-widest"
+                    style={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-sans)' }}
+                  >
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
            {/* ── LEFT: Editorial content ── */}
