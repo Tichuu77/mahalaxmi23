@@ -338,7 +338,7 @@ export default function HeroSection() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url("/M-43-BACKGROUND.jpg")',
+            backgroundImage: 'url("/M-43-BACKGROUND.jpg.jpeg")',
             backgroundSize: 'cover',
             backgroundPosition: 'center 40%',
             animation: 'kenBurns 18s ease-in-out infinite alternate',
