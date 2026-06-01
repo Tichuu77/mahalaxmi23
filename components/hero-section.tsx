@@ -7,7 +7,6 @@ interface Project {
   name: string;
   href: string;
   location: string;
-  description: string;
 }
 
 const navLinks = [
@@ -19,20 +18,20 @@ const navLinks = [
 ];
 
 const otherProjects: Project[] = [
-  { name: 'Mahalaxmi Nagar 46', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-46', location: 'Nagpur, Maharashtra', description: 'Premium residential plots offering a perfect blend of modern infrastructure and lush greenery in a prime location.' },
-  { name: 'Mahalaxmi Nagar 45', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-45', location: 'Nagpur, Maharashtra', description: 'Thoughtfully planned plotted development with wide roads, drainage and all civic amenities in place.' },
-  { name: 'Mahalaxmi Nagar 44', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-44', location: 'Nagpur, Maharashtra', description: 'Exclusive NA plots in a gated township with 24/7 security and excellent connectivity.' },
-  { name: 'Tattva Apas', href: 'https://mahalaxmiinfra.in/project/tattva-apas', location: 'Nagpur, Maharashtra', description: 'A premium plotted township inspired by nature — where every plot is surrounded by parks and open spaces.' },
-  { name: 'Mahalaxmi Nagar 52', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-52', location: 'Nagpur, Maharashtra', description: 'The newest addition to the Mahalaxmi portfolio — strategically located for maximum appreciation potential.' },
-  { name: 'Mahalaxmi Nagar 47', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-47', location: 'Nagpur, Maharashtra', description: 'Residential plots with RERA approval, clear titles, and immediate possession available.' },
-  { name: 'Mahalaxmi Nagar 43', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-43', location: 'Nagpur, Maharashtra', description: 'Premium plots near Airport and Wardha Road — perfect for investment or building your dream home.' },
-  { name: 'Mahalaxmi Nagar 42', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-42', location: 'Nagpur, Maharashtra', description: 'Well-planned plotted layout with wide internal roads, compound wall and garden area.' },
-  { name: 'Mahalaxmi Nagar 41', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-41', location: 'Nagpur, Maharashtra', description: 'Affordable residential plots in a fast-developing micro-market with strong rental demand.' },
-  { name: 'Mahalaxmi Nagar 40', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-40', location: 'Nagpur, Maharashtra', description: 'RERA-registered plots with modern amenities and proximity to schools, hospitals and markets.' },
-  { name: 'Mahalaxmi Nagar 39', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-39', location: 'Nagpur, Maharashtra', description: 'Serene residential township with landscaped entrance, tree-lined avenues and 24/7 security.' },
-  { name: 'Mahalaxmi Nagar 38', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-38', location: 'Nagpur, Maharashtra', description: 'Established plotted colony with excellent infrastructure and high capital appreciation history.' },
-  { name: 'Mahalaxmi Nagar 31', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-31', location: 'Nagpur, Maharashtra', description: 'Proven investment destination — most plots in this phase have already been constructed.' },
-  { name: 'Mahalaxmi Nagar 30', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-30', location: 'Nagpur, Maharashtra', description: 'One of the earliest and most trusted phases, fully developed with a thriving community.' },
+  { name: 'Mahalaxmi Nagar 46', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-46', location: 'Nagpur, Maharashtra',},
+  { name: 'Mahalaxmi Nagar 45', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-45', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 44', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-44', location: 'Nagpur, Maharashtra', },
+  { name: 'Tattva Apas', href: 'https://mahalaxmiinfra.in/project/tattva-apas', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 52', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-52', location: 'Nagpur, Maharashtra',  },
+  { name: 'Mahalaxmi Nagar 47', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-47', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 43', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-43', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 42', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-42', location: 'Nagpur, Maharashtra',  },
+  { name: 'Mahalaxmi Nagar 41', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-41', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 40', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-40', location: 'Nagpur, Maharashtra',  },
+  { name: 'Mahalaxmi Nagar 39', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-39', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 38', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-38', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 31', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-31', location: 'Nagpur, Maharashtra', },
+  { name: 'Mahalaxmi Nagar 30', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-30', location: 'Nagpur, Maharashtra', },
 ];
 
 /* ─── Project Popup ─── */
@@ -145,17 +144,7 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
           >
             <MapPin size={12} /> {project.location}
           </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.88rem',
-              color: 'rgba(255,255,255,0.78)',
-              lineHeight: 1.65,
-              marginBottom: '20px',
-            }}
-          >
-            {project.description}
-          </p>
+        
 
           {/* Call + WhatsApp */}
           <div style={{ display: 'flex', gap: '10px' }}>
@@ -532,9 +521,9 @@ export default function HeroSection() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url("/M-43-BACKGROUND.jpg.jpeg")',
+            backgroundImage: 'url("/home.jpg")',
             backgroundSize: 'cover',
-            backgroundPosition: 'center 40%',
+            backgroundPosition: 'center 70%',
             animation: 'kenBurns 18s ease-in-out infinite alternate',
           }}
         />
@@ -621,7 +610,7 @@ export default function HeroSection() {
                   'GOVERMENT ENGINEERING COLLAGE',
                   'NEW MANISH NAGAR',
                 ].map((place) => (
-                  <div key={place} className="flex gap-3">
+                  <div key={place} className="flex gap-2">
                     <MapPin size={30} style={{ color: 'var(--secondary)' }} />
                     <p
                       className="mb-2 leading-relaxed"
@@ -634,7 +623,7 @@ export default function HeroSection() {
                     >
                       {place}
                     </p>
-                    <span style={{ color: 'var(--background)' }}>-3MIN</span>
+                    <span style={{ color: 'var(--background)' }}>-  3MIN</span>
                   </div>
                 ))}
               </div>
@@ -662,6 +651,44 @@ export default function HeroSection() {
                 </button>
               </a>
             </div>
+
+            {/* Nearby Locations */}
+<div className="mb-8">
+  <p
+    style={{
+      fontFamily: 'var(--font-heading)',
+      fontSize: '0.7rem',
+      fontWeight: 700,
+      letterSpacing: '0.12em',
+      color: 'rgba(255,255,255,0.45)',
+      textTransform: 'uppercase',
+      marginBottom: '10px',
+    }}
+  >
+    Nearby Locations
+  </p>
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+    {['D-Mart', 'Samrudhi Circle', 'Orange City Logistic Park', 'Era International School Sumthana'].map((place) => (
+      <span
+        key={place}
+        style={{
+          padding: '5px 13px',
+          borderRadius: '999px',
+          border: '1px solid rgba(255,255,255,0.2)',
+          background: 'rgba(255,255,255,0.06)',
+          color: 'rgba(255,255,255,0.75)',
+          fontFamily: 'var(--font-heading)',
+          fontSize: '0.72rem',
+          fontWeight: 600,
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase',
+        }}
+      >
+        {place}
+      </span>
+    ))}
+  </div>
+</div>
 
             {/* ── OTHER PROJECTS PILLS ── */}
             <div>
