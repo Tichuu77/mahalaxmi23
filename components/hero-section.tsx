@@ -3,12 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone, MapPin, ChevronDown } from 'lucide-react';
 import { usePopup } from './popup-context';
 
-interface Project {
-  name: string;
-  href: string;
-  location: string;
-}
-
 const navLinks = [
   { name: 'Overview', href: '#overview' },
   { name: 'Amenities', href: '#amenities' },
@@ -17,43 +11,43 @@ const navLinks = [
   { name: 'FAQ', href: '#faq_sec' },
 ];
 
-const otherProjects: Project[] = [
-  { name: 'Mahalaxmi Nagar 46', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-46', location: 'Nagpur, Maharashtra',},
-  { name: 'Mahalaxmi Nagar 45', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-45', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 44', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-44', location: 'Nagpur, Maharashtra', },
-  { name: 'Tattva Apas', href: 'https://mahalaxmiinfra.in/project/tattva-apas', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 52', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-52', location: 'Nagpur, Maharashtra',  },
-  { name: 'Mahalaxmi Nagar 47', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-47', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 43', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-43', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 42', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-42', location: 'Nagpur, Maharashtra',  },
-  { name: 'Mahalaxmi Nagar 41', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-41', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 40', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-40', location: 'Nagpur, Maharashtra',  },
-  { name: 'Mahalaxmi Nagar 39', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-39', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 38', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-38', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 31', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-31', location: 'Nagpur, Maharashtra', },
-  { name: 'Mahalaxmi Nagar 30', href: 'https://mahalaxmiinfra.in/project/mahalaxmi-nagar-30', location: 'Nagpur, Maharashtra', },
+const otherProjects = [
+  { name: 'Mahalaxmi Nagar 46', location: 'Pandhurna Umred Road', image: '/project_46.jpg' },
+  { name: 'Mahalaxmi Nagar 45', location: 'Sumthana', image: '/project_45.jpg' },
+  { name: 'Mahalaxmi Nagar 44', location: 'Tarodi', image: '/project_44.jpg' },
+  { name: 'Tattva Apas', location: 'Beltarodi', image: '/tatva-apas.webp' },
+  { name: 'Mahalaxmi Nagar 52', location: 'Dhamna', image: '/project_52.jpg' },
+  { name: 'Mahalaxmi Nagar 47', location: 'New Nanda', image: '/project_47.jpg' },
+  { name: 'Mahalaxmi Nagar 43', location: 'Shankarpur', image: '/project_43.jpg' },
+  { name: 'Mahalaxmi Nagar 42', location: 'Jamtha', image: '/project_42.webp' },
+  { name: 'Mahalaxmi Nagar 41', location: 'Gumgaon', image: '/project_41.webp' },
+  { name: 'Mahalaxmi Nagar 40', location: 'Kotiwada', image: '/project_40.webp' },
+  { name: 'Mahalaxmi Nagar 38', location: 'Mhasala', image: '/project_38.webp' },
+  { name: 'Mahalaxmi Nagar 31', location: 'Pimpla', image: '/project_31.webp' },
+  { name: 'Mahalaxmi Nagar 30', location: 'Takli', image: '/project_30.webp' },
 ];
+
+type Project = typeof otherProjects[0];
 
 /* ─── Project Popup ─── */
 function ProjectPopup({ project, onClose }: { project: Project; onClose: () => void }) {
+  const handleBackdrop = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
+  };
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
 
   return (
     <div
-      onClick={onClose}
+      onClick={handleBackdrop}
       style={{
         position: 'fixed',
         inset: 0,
         zIndex: 200,
-        background: 'rgba(0,0,0,0.6)',
+        background: 'rgba(0,0,0,0.72)',
         backdropFilter: 'blur(6px)',
         display: 'flex',
         alignItems: 'center',
@@ -63,56 +57,44 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
       }}
     >
       <div
-        onClick={(e) => e.stopPropagation()}
         style={{
           background: 'rgba(13,42,33,0.98)',
           border: '1px solid rgba(255,255,255,0.12)',
           borderRadius: '16px',
-          width: '100%',
-          maxWidth: '400px',
-          overflow: 'hidden',
           boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
-          animation: 'slideUp 0.25s cubic-bezier(0.34,1.56,0.64,1)',
+          maxWidth: '480px',
+          width: '100%',
+          overflow: 'hidden',
+          animation: 'slideUp 0.25s cubic-bezier(0.4,0,0.2,1)',
         }}
       >
-        {/* Header */}
-        <div
-          style={{
-            padding: '16px 20px',
-            borderBottom: '1px solid rgba(255,255,255,0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '0.65rem',
-              fontWeight: 700,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              color: 'var(--secondary)',
-            }}
-          >
-            Mahalaxmi Infra
-          </span>
+        {/* Image */}
+        <div style={{ position: 'relative', height: '220px', background: '#0a1f16' }}>
+          <img
+            src={project.image}
+            alt={project.name}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9 }}
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0'; }}
+          />
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(255,255,255,0.08)',
+              position: 'absolute',
+              top: '12px',
+              right: '12px',
+              background: 'rgba(0,0,0,0.5)',
               border: 'none',
               borderRadius: '50%',
-              width: 28,
-              height: 28,
+              width: '32px',
+              height: '32px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: 'rgba(255,255,255,0.7)',
+              color: '#fff',
             }}
           >
-            <X size={14} />
+            <X size={16} />
           </button>
         </div>
 
@@ -123,7 +105,7 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
               fontFamily: 'var(--font-heading)',
               fontSize: '1.2rem',
               fontWeight: 700,
-              color: '#fff',
+              color: 'var(--secondary)',
               marginBottom: '6px',
               textTransform: 'uppercase',
               letterSpacing: '0.06em',
@@ -131,22 +113,10 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
           >
             {project.name}
           </h3>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.78rem',
-              color: 'rgba(255,255,255,0.5)',
-              marginBottom: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-            }}
-          >
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '4px' }}>
             <MapPin size={12} /> {project.location}
           </p>
-        
-
-          {/* Call + WhatsApp */}
+          
           <div style={{ display: 'flex', gap: '10px' }}>
             <a
               href="tel:+919327210650"
@@ -156,7 +126,7 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '7px',
-                padding: '11px 16px',
+                padding: '10px 16px',
                 borderRadius: '999px',
                 background: 'var(--secondary)',
                 color: '#fff',
@@ -180,7 +150,7 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '7px',
-                padding: '11px 16px',
+                padding: '10px 16px',
                 borderRadius: '999px',
                 background: '#25D366',
                 color: '#fff',
@@ -200,6 +170,11 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      `}</style>
     </div>
   );
 }
@@ -217,6 +192,8 @@ export default function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { openPopup } = usePopup();
+
+  const PILLS_INITIAL = 4;
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -240,8 +217,6 @@ export default function HeroSection() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  const PILLS_PREVIEW = 4;
 
   return (
     <>
@@ -342,7 +317,7 @@ export default function HeroSection() {
               >
                 {otherProjects.map((project, idx) => (
                   <button
-                    key={project.href}
+                    key={project.name}
                     onClick={() => { setSelectedProject(project); setIsDropdownOpen(false); }}
                     style={{
                       display: 'block',
@@ -452,7 +427,7 @@ export default function HeroSection() {
               {/* Mobile sub-links */}
               <div
                 style={{
-                  maxHeight: isMobileProjectsOpen ? '380px' : '0',
+                  maxHeight: isMobileProjectsOpen ? '360px' : '0',
                   overflow: 'hidden',
                   transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1)',
                   overflowY: isMobileProjectsOpen ? 'auto' : 'hidden',
@@ -469,7 +444,7 @@ export default function HeroSection() {
                 >
                   {otherProjects.map((project) => (
                     <button
-                      key={project.href}
+                      key={project.name}
                       onClick={() => { setSelectedProject(project); setIsMenuOpen(false); setIsMobileProjectsOpen(false); }}
                       style={{
                         display: 'block',
@@ -653,42 +628,42 @@ export default function HeroSection() {
             </div>
 
             {/* Nearby Locations */}
-<div className="mb-8">
-  <p
-    style={{
-      fontFamily: 'var(--font-heading)',
-      fontSize: '0.7rem',
-      fontWeight: 700,
-      letterSpacing: '0.12em',
-      color: 'rgba(255,255,255,0.45)',
-      textTransform: 'uppercase',
-      marginBottom: '10px',
-    }}
-  >
-    Nearby Locations
-  </p>
-  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-    {['D-Mart', 'Samrudhi Circle', 'Orange City Logistic Park', 'Era International School Sumthana'].map((place) => (
-      <span
-        key={place}
-        style={{
-          padding: '5px 13px',
-          borderRadius: '999px',
-          border: '1px solid rgba(255,255,255,0.2)',
-          background: 'rgba(255,255,255,0.06)',
-          color: 'rgba(255,255,255,0.75)',
-          fontFamily: 'var(--font-heading)',
-          fontSize: '0.72rem',
-          fontWeight: 600,
-          letterSpacing: '0.05em',
-          textTransform: 'uppercase',
-        }}
-      >
-        {place}
-      </span>
-    ))}
-  </div>
-</div>
+            <div className="mb-8">
+              <p
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                 color: '#FFD700',
+                  textTransform: 'uppercase',
+                  marginBottom: '10px',
+                }}
+              >
+                Nearby Locations
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {['D-Mart', 'Samrudhi Circle', 'Orange City Logistic Park', 'Era International School Sumthana'].map((place) => (
+                  <span
+                    key={place}
+                    style={{
+                      padding: '5px 13px',
+                      borderRadius: '999px',
+                      border: '1px solid #FFD700',
+                      background: 'rgba(255,255,255,0.06)',
+                      color: 'rgba(255,255,255,0.75)',
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '0.72rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {place}
+                  </span>
+                ))}
+              </div>
+            </div>
 
             {/* ── OTHER PROJECTS PILLS ── */}
             <div>
@@ -698,7 +673,7 @@ export default function HeroSection() {
                   fontSize: '0.7rem',
                   fontWeight: 700,
                   letterSpacing: '0.12em',
-                  color: 'rgba(255,255,255,0.45)',
+                 color: '#FFD700',
                   textTransform: 'uppercase',
                   marginBottom: '10px',
                 }}
@@ -707,7 +682,7 @@ export default function HeroSection() {
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {(isMobile && !showAllPills
-                  ? otherProjects.slice(0, PILLS_PREVIEW)
+                  ? otherProjects.slice(0, PILLS_INITIAL)
                   : otherProjects
                 ).map((project) => (
                   <button
@@ -716,8 +691,8 @@ export default function HeroSection() {
                     style={{
                       padding: '5px 13px',
                       borderRadius: '999px',
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      background: 'rgba(255,255,255,0.06)',
+                      border: '1px solid #FFD700',
+                      background: 'transparent',
                       color: 'rgba(255,255,255,0.75)',
                       fontFamily: 'var(--font-heading)',
                       fontSize: '0.72rem',
@@ -725,18 +700,16 @@ export default function HeroSection() {
                       letterSpacing: '0.05em',
                       textTransform: 'uppercase',
                       cursor: 'pointer',
-                      transition: 'background 0.18s, border-color 0.18s, color 0.18s',
+                      transition: 'border-color 0.18s, color 0.18s',
                     }}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget;
-                      el.style.background = 'rgba(255,255,255,0.14)';
-                      el.style.borderColor = 'var(--secondary)';
+                      el.style.borderColor = '#FFEB3B';
                       el.style.color = '#fff';
                     }}
                     onMouseLeave={(e) => {
                       const el = e.currentTarget;
-                      el.style.background = 'rgba(255,255,255,0.06)';
-                      el.style.borderColor = 'rgba(255,255,255,0.2)';
+                      el.style.borderColor = '#FFD700';
                       el.style.color = 'rgba(255,255,255,0.75)';
                     }}
                   >
@@ -744,25 +717,25 @@ export default function HeroSection() {
                   </button>
                 ))}
 
-                {/* Mobile View More / Less toggle */}
                 {isMobile && (
                   <button
                     onClick={() => setShowAllPills(!showAllPills)}
                     style={{
                       padding: '5px 13px',
                       borderRadius: '999px',
-                      border: '1px solid var(--secondary)',
-                      background: 'rgba(255,255,255,0.06)',
-                      color: 'var(--secondary)',
+                      border: '1px solid #FFD700',
+                      background: 'transparent',
+                      color: 'rgba(255,255,255,0.75)',
                       fontFamily: 'var(--font-heading)',
                       fontSize: '0.72rem',
                       fontWeight: 700,
                       letterSpacing: '0.05em',
                       textTransform: 'uppercase',
                       cursor: 'pointer',
+                      transition: 'border-color 0.18s, color 0.18s',
                     }}
                   >
-                    {showAllPills ? '− Less' : `+ ${otherProjects.length - PILLS_PREVIEW} More`}
+                    {showAllPills ? '− Less' : `+ ${otherProjects.length - PILLS_INITIAL} More`}
                   </button>
                 )}
               </div>
@@ -790,14 +763,6 @@ export default function HeroSection() {
         @keyframes kenBurns {
           from { transform: scale(1); }
           to   { transform: scale(1.08); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(24px) scale(0.97); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
       `}</style>
     </>
