@@ -627,44 +627,7 @@ export default function HeroSection() {
               </a>
             </div>
 
-            {/* Nearby Locations */}
-            <div className="mb-8">
-              <p
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.7rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.12em',
-                 color: '#FFD700',
-                  textTransform: 'uppercase',
-                  marginBottom: '10px',
-                }}
-              >
-                Nearby Locations
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {['D-Mart', 'Samrudhi Circle', 'Orange City Logistic Park', 'Era International School Sumthana'].map((place) => (
-                  <span
-                    key={place}
-                    style={{
-                      padding: '5px 13px',
-                      borderRadius: '999px',
-                      border: '1px solid #FFD700',
-                      background: 'rgba(255,255,255,0.06)',
-                      color: 'rgba(255,255,255,0.75)',
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: '0.72rem',
-                      fontWeight: 600,
-                      letterSpacing: '0.05em',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    {place}
-                  </span>
-                ))}
-              </div>
-            </div>
-
+            
             {/* ── OTHER PROJECTS PILLS ── */}
             <div>
               <p
