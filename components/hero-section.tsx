@@ -521,19 +521,18 @@ export default function HeroSection() {
         <div
           className="relative w-full md:w-1/2 flex-shrink-0"
           style={{
-            height: '58vw',
-            minHeight: '260px',
-            maxHeight: '480px',
+            height: '100vh',
+            minHeight: '100vh',
+            maxHeight: '100vh',
           }}
         >
-          {/* Ken Burns background */}
+          {/* Static background - fully visible */}
           <div
             className="image-panel absolute inset-0"
             style={{
               backgroundImage: 'url("/home.jpeg")',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              animation: 'kenBurns 18s ease-in-out infinite alternate',
             }}
           />
 
@@ -752,12 +751,8 @@ export default function HeroSection() {
           .image-panel {
             height: auto !important;
             max-height: none !important;
-            min-height: calc(100vh - 80px) !important;
+            min-height: 100vh !important;
           }
-        }
-        @keyframes kenBurns {
-          from { transform: scale(1); }
-          to   { transform: scale(1.08); }
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp {
