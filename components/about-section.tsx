@@ -185,12 +185,12 @@ export default function AboutSection() {
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  style={{backgroundColor:'var(--primary)'}}
+                  style={{backgroundColor:'var(--secondary)'}}
                   className="glass-card rounded-xl px-5 py-4 min-w-[110px] text-center"
                 >
                   <div
                     className="font-bold leading-none mb-1"
-                    style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.4rem, 3.5vw, 2rem)',backgroundColor: 'var(--primary)', color: 'var(--background)' }}
+                    style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.4rem, 3.5vw, 2rem)',backgroundColor: 'var(--secondary)', color: 'var(--background)' }}
                   >
                     {stat.value}
                   </div>

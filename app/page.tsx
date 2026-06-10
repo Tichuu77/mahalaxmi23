@@ -20,7 +20,7 @@ export default function Home() {
       <AboutSection />
       <FeaturesSwitcher />
       <AmenitiesSection />
-      <VirtualTourHero />
+      {/* <VirtualTourHero /> */}
       <GallerySection />
       <TestimonialsSection />
       <MiniBlogsSection />

@@ -521,9 +521,9 @@ export default function HeroSection() {
         <div
           className="relative w-full md:w-1/2 flex-shrink-0"
           style={{
-            height: '100vh',
-            minHeight: '100vh',
-            maxHeight: '100vh',
+            height: '85vh',
+            minHeight: '85vh',
+            maxHeight: '85vh',
           }}
         >
           {/* Static background - fully visible */}
@@ -600,48 +600,7 @@ export default function HeroSection() {
             >
               RERA No: A51000042498
             </p>
-
-            {/* Subheading */}
-            <p
-              className="mb-6 leading-relaxed"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                color: 'rgba(255,255,255,0.82)',
-                fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
-              }}
-            >
-              Premium Residential Plots in Nagpur — crafted for those who seek exclusivity,
-              green living, and long-term growth.
-            </p>
-
-            {/* Location pins */}
-            <div className="mb-8">
-              {[
-                'AIRPORT',
-                'BELTARODI D-MART',
-                'WARDHA ROAD',
-                'GOVERMENT ENGINEERING COLLAGE',
-                'NEW MANISH NAGAR',
-              ].map((place) => (
-                <div key={place} className="flex items-center gap-2 mb-1.5">
-                  <MapPin size={16} style={{ color: 'var(--secondary)', flexShrink: 0 }} />
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      color: 'rgba(255,255,255,0.82)',
-                      fontSize: '0.88rem',
-                      fontWeight: 'bolder',
-                      margin: 0,
-                    }}
-                  >
-                    {place}
-                  </p>
-                  <span style={{ color: 'var(--background)', fontSize: '0.88rem', whiteSpace: 'nowrap' }}>
-                    — 3 MIN
-                  </span>
-                </div>
-              ))}
-            </div>
+ 
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
