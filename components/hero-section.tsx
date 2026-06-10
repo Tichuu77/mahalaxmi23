@@ -113,15 +113,23 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
           >
             {project.name}
           </h3>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '0.78rem',
+            color: 'rgba(255,255,255,0.5)',
+            marginBottom: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+          }}>
             <MapPin size={12} /> {project.location}
           </p>
-          
+
           <div style={{ display: 'flex', gap: '10px' }}>
             <a
               href="tel:+919327210650"
               style={{
-                flex: 1,
+                flexGrow: 1,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -145,7 +153,7 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                flex: 1,
+                flexGrow: 1,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -170,11 +178,6 @@ function ProjectPopup({ project, onClose }: { project: Project; onClose: () => v
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-      `}</style>
     </div>
   );
 }
@@ -226,16 +229,28 @@ export default function HeroSection() {
       )}
 
       {/* ── NAV ── */}
+      {/*
+        KEY FIX: Nav now always has a solid dark background.
+        - On mobile: always solid #0d2a20 so it never floats over the image
+        - On desktop: solid #0d2a20 always — no more transparent-on-image problem
+        - scrolled state only adds the blur + shadow enhancement on scroll
+      */}
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          background: scrolled ? 'rgba(13, 42, 33, 0.92)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          padding: scrolled ? '0.5rem 0' : '1.25rem 0',
-          boxShadow: scrolled ? '0 2px 24px rgba(0,0,0,0.35)' : 'none',
+          background: scrolled
+            ? 'rgba(13, 42, 33, 0.97)'
+            : 'rgba(13, 42, 33, 0.92)',
+          backdropFilter: 'blur(16px)',
+          borderBottom: scrolled
+            ? '1px solid rgba(255,255,255,0.08)'
+            : '1px solid rgba(255,255,255,0.05)',
+          padding: scrolled ? '0.5rem 0' : '0.75rem 0',
+          boxShadow: scrolled ? '0 2px 24px rgba(0,0,0,0.4)' : '0 1px 12px rgba(0,0,0,0.2)',
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+
           {/* Logo */}
           <a href="/" className="flex-shrink-0 flex items-center gap-2">
             <img
@@ -334,7 +349,9 @@ export default function HeroSection() {
                       border: 'none',
                       cursor: 'pointer',
                       transition: 'background 0.18s, color 0.18s',
-                      borderBottom: idx < otherProjects.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                      borderBottom: idx < otherProjects.length - 1
+                        ? '1px solid rgba(255,255,255,0.07)'
+                        : 'none',
                       textTransform: 'uppercase',
                     }}
                     onMouseEnter={(e) => {
@@ -379,8 +396,8 @@ export default function HeroSection() {
           className="lg:hidden overflow-hidden transition-all duration-400 ease-in-out"
           style={{
             maxHeight: isMenuOpen ? '640px' : '0',
-            background: 'rgba(13,42,33,0.97)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(13, 42, 33, 0.99)',
+            borderTop: isMenuOpen ? '1px solid rgba(255,255,255,0.07)' : 'none',
           }}
         >
           <nav className="flex flex-col px-6 py-4 gap-1">
@@ -445,7 +462,11 @@ export default function HeroSection() {
                   {otherProjects.map((project) => (
                     <button
                       key={project.name}
-                      onClick={() => { setSelectedProject(project); setIsMenuOpen(false); setIsMobileProjectsOpen(false); }}
+                      onClick={() => {
+                        setSelectedProject(project);
+                        setIsMenuOpen(false);
+                        setIsMobileProjectsOpen(false);
+                      }}
                       style={{
                         display: 'block',
                         width: '100%',
@@ -463,8 +484,12 @@ export default function HeroSection() {
                         cursor: 'pointer',
                         transition: 'color 0.18s',
                       }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--secondary)'; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.75)'; }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = 'var(--secondary)';
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.75)';
+                      }}
                     >
                       {project.name}
                     </button>
@@ -488,54 +513,69 @@ export default function HeroSection() {
       {/* ── HERO ── */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex items-end md:items-center overflow-hidden"
-        style={{ background: '#0d2a20' }}
+        className="flex flex-col md:flex-row md:min-h-screen overflow-hidden"
+        style={{ background: '#0d2a20', paddingTop: '80px' }}
         aria-label="Hero section"
       >
-        {/* Background image with Ken Burns */}
+        {/* ── IMAGE PANEL (top on mobile, left on desktop) ── */}
         <div
-          className="absolute inset-0"
+          className="relative w-full md:w-1/2 flex-shrink-0"
           style={{
-            backgroundImage: 'url("/home.jpg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 70%',
-            animation: 'kenBurns 18s ease-in-out infinite alternate',
+            height: '58vw',
+            minHeight: '260px',
+            maxHeight: '480px',
           }}
-        />
+        >
+          {/* Ken Burns background */}
+          <div
+            className="image-panel absolute inset-0"
+            style={{
+              backgroundImage: 'url("/home.jpeg")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              animation: 'kenBurns 18s ease-in-out infinite alternate',
+            }}
+          />
 
-        {/* Multi-layer gradient overlay */}
+          {/* Bottom fade on mobile */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-16 md:hidden"
+            style={{ background: 'linear-gradient(to bottom, transparent, #0d2a20)' }}
+          />
+
+          {/* Right fade on desktop */}
+          <div
+            className="absolute inset-y-0 right-0 w-16 hidden md:block"
+            style={{ background: 'linear-gradient(to right, transparent, #0d2a20)' }}
+          />
+        </div>
+
+        {/* ── CONTENT PANEL (bottom on mobile, right on desktop) ── */}
         <div
-          className="absolute inset-0"
-          style={{
-            background: isMobile
-              ? 'linear-gradient(to top, rgba(10,30,20,0.95) 0%, rgba(10,30,20,0.7) 20%, rgba(10,30,20,0.35) 100%)'
-              : 'linear-gradient(105deg, rgba(10,30,20,0.92) 0%, rgba(10,30,20,0.75) 25%, rgba(10,30,20,0.15) 100%)',
-          }}
-        />
+          className="relative w-full md:w-1/2 flex items-start md:items-center"
+          style={{ background: '#0d2a20' }}
+        >
+          {/* Decorative left border — desktop only */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-px hidden md:block"
+            style={{
+              background: 'linear-gradient(to bottom, transparent, var(--secondary), transparent)',
+            }}
+          />
 
-        {/* Decorative vertical line */}
-        <div
-          className="absolute left-0 top-0 bottom-0 w-1 hidden md:block"
-          style={{ background: 'linear-gradient(to bottom, transparent, var(--secondary), transparent)' }}
-        />
-
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-28 md:mt-20 md:py-6">
-          <div className="max-w-2xl">
+          <div className="w-full px-6 md:px-10 py-8 md:py-16 max-w-xl md:mx-auto">
 
             {/* H1 */}
             <h1
               className="font-bold mb-4 leading-tight"
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(2.2rem, 6vw, 4.5rem)',
+                fontSize: 'clamp(2.2rem, 5vw, 4rem)',
                 color: '#fff',
-                textShadow: '0 4px 24px rgba(0,0,0,0.5)',
                 lineHeight: 1.08,
               }}
             >
-              Mahalaxmi<br />
-              Nagar 43
+              Mahalaxmi<br />Nagar 43
             </h1>
 
             {/* Price */}
@@ -564,44 +604,44 @@ export default function HeroSection() {
 
             {/* Subheading */}
             <p
-              className="mb-8 leading-relaxed"
+              className="mb-6 leading-relaxed"
               style={{
                 fontFamily: 'var(--font-sans)',
                 color: 'rgba(255,255,255,0.82)',
-                fontSize: 'clamp(1rem, 2.2vw, 1.2rem)',
+                fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
               }}
             >
               Premium Residential Plots in Nagpur — crafted for those who seek exclusivity,
               green living, and long-term growth.
             </p>
 
-            {/* Location */}
-            <div className="mb-3 flex items-between gap-4">
-              <div className="mb-3 leading-relaxed">
-                {[
-                  'AIRPORT',
-                  'BELTARODI D-MART',
-                  'WARDHA ROAD',
-                  'GOVERMENT ENGINEERING COLLAGE',
-                  'NEW MANISH NAGAR',
-                ].map((place) => (
-                  <div key={place} className="flex gap-2">
-                    <MapPin size={30} style={{ color: 'var(--secondary)' }} />
-                    <p
-                      className="mb-2 leading-relaxed"
-                      style={{
-                        fontFamily: 'var(--font-sans)',
-                        color: 'rgba(255,255,255,0.82)',
-                        fontSize: 'clamp(1rem, 1.2vw, 1rem)',
-                        fontWeight: 'bolder',
-                      }}
-                    >
-                      {place}
-                    </p>
-                    <span style={{ color: 'var(--background)' }}>-  3MIN</span>
-                  </div>
-                ))}
-              </div>
+            {/* Location pins */}
+            <div className="mb-8">
+              {[
+                'AIRPORT',
+                'BELTARODI D-MART',
+                'WARDHA ROAD',
+                'GOVERMENT ENGINEERING COLLAGE',
+                'NEW MANISH NAGAR',
+              ].map((place) => (
+                <div key={place} className="flex items-center gap-2 mb-1.5">
+                  <MapPin size={16} style={{ color: 'var(--secondary)', flexShrink: 0 }} />
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      color: 'rgba(255,255,255,0.82)',
+                      fontSize: '0.88rem',
+                      fontWeight: 'bolder',
+                      margin: 0,
+                    }}
+                  >
+                    {place}
+                  </p>
+                  <span style={{ color: 'var(--background)', fontSize: '0.88rem', whiteSpace: 'nowrap' }}>
+                    — 3 MIN
+                  </span>
+                </div>
+              ))}
             </div>
 
             {/* CTAs */}
@@ -613,9 +653,9 @@ export default function HeroSection() {
               >
                 Enquire Now
               </button>
-              <a href="#gallery">
+              <a href="#gallery" className="w-full sm:w-auto">
                 <button
-                  className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest transition-all hover:bg-white/10"
+                  className="w-full px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest transition-all hover:bg-white/10"
                   style={{
                     fontFamily: 'var(--font-heading)',
                     border: '2px solid rgba(255,255,255,0.4)',
@@ -627,7 +667,6 @@ export default function HeroSection() {
               </a>
             </div>
 
-            
             {/* ── OTHER PROJECTS PILLS ── */}
             <div>
               <p
@@ -636,7 +675,7 @@ export default function HeroSection() {
                   fontSize: '0.7rem',
                   fontWeight: 700,
                   letterSpacing: '0.12em',
-                 color: '#FFD700',
+                  color: '#FFD700',
                   textTransform: 'uppercase',
                   marginBottom: '10px',
                 }}
@@ -706,26 +745,24 @@ export default function HeroSection() {
 
           </div>
         </div>
-
-        {/* Bottom scroll cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
-          <span
-            className="text-xs uppercase tracking-widest"
-            style={{ color: '#fff', fontFamily: 'var(--font-sans)' }}
-          >
-            Scroll
-          </span>
-          <div
-            className="w-px h-10"
-            style={{ background: 'linear-gradient(to bottom, #fff, transparent)' }}
-          />
-        </div>
       </section>
 
       <style jsx>{`
+        @media (min-width: 768px) {
+          .image-panel {
+            height: auto !important;
+            max-height: none !important;
+            min-height: calc(100vh - 80px) !important;
+          }
+        }
         @keyframes kenBurns {
           from { transform: scale(1); }
           to   { transform: scale(1.08); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp {
+          from { transform: translateY(20px); opacity: 0; }
+          to   { transform: translateY(0); opacity: 1; }
         }
       `}</style>
     </>
