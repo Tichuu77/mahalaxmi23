@@ -229,12 +229,6 @@ export default function HeroSection() {
       )}
 
       {/* ── NAV ── */}
-      {/*
-        KEY FIX: Nav now always has a solid dark background.
-        - On mobile: always solid #0d2a20 so it never floats over the image
-        - On desktop: solid #0d2a20 always — no more transparent-on-image problem
-        - scrolled state only adds the blur + shadow enhancement on scroll
-      */}
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
@@ -517,41 +511,52 @@ export default function HeroSection() {
         style={{ background: '#0d2a20', paddingTop: '80px' }}
         aria-label="Hero section"
       >
-        {/* ── IMAGE PANEL (top on mobile, left on desktop) ── */}
+        {/* 
+          ── FIX 1 & 2: IMAGE PANEL ──
+          Mobile: fixed height of 55vw (portrait-friendly, not 100vh), 
+                  NO absolute positioning of content over it.
+          Desktop: full height side panel as before.
+        */}
         <div
-          className="relative w-full md:w-1/2 flex-shrink-0"
+          className="relative w-full md:h-screen md:w-1/2 flex-shrink-0"
           style={{
-            height: '85vh',
-            minHeight: '85vh',
-            maxHeight: '85vh',
+            // Mobile: ~55vw tall so image is visible but doesn't dominate the whole screen
+            // Desktop: full viewport height
+            height: isMobile ? '55vw' : '100vh',
+            minHeight: isMobile ? '500px' : '1400px',
+            maxHeight: isMobile ? '500px' : '1400px',
           }}
         >
-          {/* Static background - fully visible */}
+          {/* Background image — fills the box */}
           <div
-            className="image-panel absolute inset-0"
+            className="absolute inset-0"
             style={{
               backgroundImage: 'url("/home.jpeg")',
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: 'center top',
             }}
           />
 
-          {/* Bottom fade on mobile */}
+          {/* Bottom fade on mobile — blends into the content panel below */}
           <div
-            className="absolute inset-x-0 bottom-0 h-16 md:hidden"
+            className="absolute inset-x-0 bottom-0 h-20 md:hidden"
             style={{ background: 'linear-gradient(to bottom, transparent, #0d2a20)' }}
           />
 
-          {/* Right fade on desktop */}
+          {/* Right fade on desktop only */}
           <div
             className="absolute inset-y-0 right-0 w-16 hidden md:block"
             style={{ background: 'linear-gradient(to right, transparent, #0d2a20)' }}
           />
         </div>
 
-        {/* ── CONTENT PANEL (bottom on mobile, right on desktop) ── */}
+        {/* 
+          ── FIX 1: CONTENT PANEL ──
+          On mobile this is a SEPARATE block BELOW the image (not overlapping it).
+          position: relative (not absolute), normal document flow.
+        */}
         <div
-          className="relative w-full md:w-1/2 flex items-start md:items-center"
+          className="hidden md:flex relative w-full md:w-1/2 items-start md:items-center"
           style={{ background: '#0d2a20' }}
         >
           {/* Decorative left border — desktop only */}
@@ -600,7 +605,48 @@ export default function HeroSection() {
             >
               RERA No: A51000042498
             </p>
- 
+
+            {/* Subheading */}
+            <p
+              className="mb-6 leading-relaxed"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                color: 'rgba(255,255,255,0.82)',
+                fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+              }}
+            >
+              Premium Residential Plots in Nagpur — crafted for those who seek exclusivity,
+              green living, and long-term growth.
+            </p>
+
+            {/* Location pins */}
+            <div className="mb-8">
+              {[
+                'AIRPORT',
+                'BELTARODI D-MART',
+                'WARDHA ROAD',
+                'GOVERMENT ENGINEERING COLLAGE',
+                'NEW MANISH NAGAR',
+              ].map((place) => (
+                <div key={place} className="flex items-center gap-2 mb-1.5">
+                  <MapPin size={16} style={{ color: 'var(--secondary)', flexShrink: 0 }} />
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      color: 'rgba(255,255,255,0.82)',
+                      fontSize: '0.88rem',
+                      fontWeight: 'bolder',
+                      margin: 0,
+                    }}
+                  >
+                    {place}
+                  </p>
+                  <span style={{ color: 'var(--background)', fontSize: '0.88rem', whiteSpace: 'nowrap' }}>
+                    — 3 MIN
+                  </span>
+                </div>
+              ))}
+            </div>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
@@ -706,13 +752,6 @@ export default function HeroSection() {
       </section>
 
       <style jsx>{`
-        @media (min-width: 768px) {
-          .image-panel {
-            height: auto !important;
-            max-height: none !important;
-            min-height: 100vh !important;
-          }
-        }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp {
           from { transform: translateY(20px); opacity: 0; }
