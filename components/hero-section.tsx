@@ -522,9 +522,9 @@ export default function HeroSection() {
           style={{
             // Mobile: ~55vw tall so image is visible but doesn't dominate the whole screen
             // Desktop: full viewport height
-            height: isMobile ? '55vw' : '100vh',
-            minHeight: isMobile ? '500px' : '1400px',
-            maxHeight: isMobile ? '500px' : '1400px',
+            height: isMobile ? '40vw' : '100vh',
+            minHeight: isMobile ? '550px' : '1400px',
+            maxHeight: isMobile ? '550px' : '1400px',
           }}
         >
           {/* Background image — fills the box */}
@@ -548,6 +548,36 @@ export default function HeroSection() {
             className="absolute inset-y-0 right-0 w-16 hidden md:block"
             style={{ background: 'linear-gradient(to right, transparent, #0d2a20)' }}
           />
+        </div>
+
+        {/* ── BUTTONS AFTER IMAGE ── */}
+        <div
+          className="flex flex-col sm:flex-row gap-3 items-center justify-center p-4 md:p-8 md:hidden w-full"
+          style={{
+            background: '#0d2a20',
+            paddingTop: '20px',
+            paddingBottom: '20px',
+          }}
+        >
+          <button
+            onClick={() => openPopup()}
+            className="btn-gold px-8 py-3 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:scale-105 w-full sm:w-auto"
+            style={{ fontFamily: 'var(--font-heading)' }}
+          >
+            Enquire Now
+          </button>
+          <a href="#gallery" className="w-full sm:w-auto">
+            <button
+              className="w-full px-8 py-3 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:bg-white/10"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                border: '2px solid rgba(255,255,255,0.4)',
+                color: '#fff',
+              }}
+            >
+              View Gallery
+            </button>
+          </a>
         </div>
 
         {/* 
@@ -648,28 +678,7 @@ export default function HeroSection() {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <button
-                onClick={() => openPopup()}
-                className="btn-gold w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest"
-                style={{ fontFamily: 'var(--font-heading)' }}
-              >
-                Enquire Now
-              </button>
-              <a href="#gallery" className="w-full sm:w-auto">
-                <button
-                  className="w-full px-8 py-4 rounded-full font-bold text-base uppercase tracking-widest transition-all hover:bg-white/10"
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    border: '2px solid rgba(255,255,255,0.4)',
-                    color: '#fff',
-                  }}
-                >
-                  View Gallery
-                </button>
-              </a>
-            </div>
+            {/* CTAs - moved to bottom of image */}
 
             {/* ── OTHER PROJECTS PILLS ── */}
             <div>
